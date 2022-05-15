@@ -1,6 +1,6 @@
 import styles from './ListItem.module.scss'
 import { Ripple } from 'primereact/ripple'
-import { motion, useCycle } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 const ListItem: React.FC<{ children: any; animated?: true }> = ({
   children,
@@ -13,7 +13,6 @@ const ListItem: React.FC<{ children: any; animated?: true }> = ({
   // UI
   return animated ? (
     <motion.li
-      className={`p-ripple ${styles.li}`}
       variants={{
         open: {
           y: 0,
@@ -31,6 +30,7 @@ const ListItem: React.FC<{ children: any; animated?: true }> = ({
         },
       }}
       whileTap={{ scale: 0.995 }}
+      className="p-ripple colouredRipple"
     >
       {children} <Ripple />
     </motion.li>

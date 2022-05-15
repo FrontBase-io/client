@@ -1,4 +1,8 @@
+import FourOhFour from '../../../Components/FourOhFour'
 import { AppService } from '../../../Utils/AppService'
+
+// Pages
+import AppSettings from './Pages/Settings'
 
 export class App {
   appService: AppService | null = null
@@ -16,11 +20,11 @@ export class App {
   onGetPages = () =>
     new Promise((resolve, reject) => {
       resolve([
-        { label: 'Settings', key: 'settings' },
-        { label: 'SettingsOne', key: 'settingsOne' },
-        { label: 'SettingsTwo', key: 'settingsTwo' },
-        { label: 'SettingsThree', key: 'settingsThree' },
-        { label: 'SettingsFour', key: 'settingsFour' },
+        { label: 'Settings', key: 'settings', component: AppSettings },
+        { label: 'SettingsOne', key: 'settingsOne', component: FourOhFour },
+        { label: 'SettingsTwo', key: 'settingsTwo', component: FourOhFour },
+        { label: 'SettingsThree', key: 'settingsThree', component: FourOhFour },
+        { label: 'SettingsFour', key: 'settingsFour', component: FourOhFour },
       ])
     })
 

@@ -6,7 +6,6 @@ import { useEffect } from 'react'
 import { colour } from '../../../../Utils/Helpers/colours'
 
 import { Link, Route, Routes } from 'react-router-dom'
-import Page from './Page'
 
 import List from '../../../../Components/List/List'
 import ListItem from '../../../../Components/List/ListItem'
@@ -33,7 +32,6 @@ const DesktopApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
         className={styles.pageMenu}
       >
         <motion.div
-          className="background"
           variants={{
             open: (height = 1000) => ({
               opacity: 1,
@@ -106,10 +104,15 @@ const DesktopApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
         </motion.ul> */}
       </motion.nav>
       <div className={styles.app}>
-        <Routes>
-          <Route path={`:pageId`} element={<Page />} />
-          <Route path="*" element={<>Test</>} />
-        </Routes>
+        <div className={styles.desktopBackground} />
+        <div className={styles.appContent}>
+          <Routes>
+            {pages.map((page) => {
+              const Component = page.component
+              return <Route path={page.key} element={<Component />} />
+            })}
+          </Routes>
+        </div>
       </div>
     </div>
   )
