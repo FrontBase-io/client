@@ -1,0 +1,28 @@
+.iconWrapper {
+  width: 100%;
+  padding: 10px 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.appIcon {
+  height: 50px;
+  width: 50px;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-content: stretch;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: nowrap;
+  margin: 0 auto;
+
+  i {
+    font-size: 1.8rem;
+  }
+}
+
+.active {
+  background-color: white;
+}
