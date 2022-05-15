@@ -15,7 +15,7 @@ import UserType from './Types/User'
 import Login from './Pages/LogIn'
 import Loading from './Components/Loading'
 import ServerSetup from './Pages/ServerSetup'
-import DesktopLayout from './Pages/App/Desktop/Desktop'
+import DesktopLayout from './Pages/App/Desktop'
 import MobileLayout from './Pages/App/Mobile'
 import { BrowserRouter } from 'react-router-dom'
 // Dynamic import

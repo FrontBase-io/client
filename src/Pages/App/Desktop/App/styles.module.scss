@@ -1,0 +1,35 @@
+.root {
+  display: flex;
+  height: 100vh;
+}
+.pageMenu {
+  width: 300px;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 15px 10px;
+      cursor: pointer;
+    }
+  }
+  .appTitle {
+    padding: 10px 10px 5px 10px;
+
+    display: flex;
+    gap: 10px;
+    cursor: default;
+    align-items: center;
+
+    h2 {
+      flex: 1;
+      font-size: 1.5rem;
+    }
+  }
+}
+.app {
+  flex: 1;
+  background-color: aliceblue;
+}

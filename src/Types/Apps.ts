@@ -5,4 +5,10 @@ export interface AppType extends ObjectType {
   icon: string
   colour: ColourType
   key: string
+  provider: string
+}
+
+export interface PageType {
+  label: string
+  key: string
 }

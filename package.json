@@ -10,6 +10,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "framer-motion": "^6.3.3",
     "lodash": "^4.17.21",
     "node-sass": "^7.0.1",
     "primeicons": "^5.0.0",

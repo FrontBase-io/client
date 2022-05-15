@@ -37,7 +37,7 @@ const DesktopLayout: React.FC = () => {
         ))}
       </div>
       <div className={styles.appcontainer}>
-        <Routes apps={apps} />
+        <Routes apps={apps} size="desktop" />
       </div>
     </div>
   )

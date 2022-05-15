@@ -2,7 +2,7 @@ import { ResponseType } from '../Types/Server'
 import Server from './Socket'
 import { AppType } from '../Types/Apps'
 
-class AppService {
+export class AppService {
   app: AppType | undefined = undefined
 
   getObjects = (modelId: string, then: (response: ResponseType) => void) => {
