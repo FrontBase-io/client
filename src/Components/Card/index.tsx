@@ -3,7 +3,7 @@ import { CSSProperties } from 'react'
 import styles from './styles.module.scss'
 
 const Card: React.FC<{
-  title?: string
+  title?: string | JSX.Element
   children: JSX.Element | string
   animate?: true
   style?: CSSProperties

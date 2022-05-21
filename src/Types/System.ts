@@ -1,8 +1,10 @@
 import { AppService } from '../Utils/AppService'
 import { PageType } from './Apps'
+import { ModelType } from './Models'
 
 export interface ObjectType {
-  _id?: string
+  _id: string
+  [key: string]: any
 }
 
 export interface ColourType {
@@ -23,8 +25,17 @@ export class AppType {
 
 export interface UIType {
   Card: React.FC<{
-    title?: string
+    title?: JSX.Element | string
     children?: JSX.Element | string
     animate?: true
   }>
+  Icon: React.FC<{
+    icon: string
+    style?: React.CSSProperties
+  }>
+
+  // Model
+  Model: {
+    Overview: React.FC<{ model: ModelType }>
+  }
 }

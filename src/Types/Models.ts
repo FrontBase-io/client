@@ -4,4 +4,6 @@ export interface ModelType {
   key_plural: string
   name: string
   name_plural: string
+  icon?: string
+  primary: string
 }

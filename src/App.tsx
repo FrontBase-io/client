@@ -18,6 +18,8 @@ import ServerSetup from './Pages/ServerSetup'
 import DesktopLayout from './Pages/App/Desktop'
 import MobileLayout from './Pages/App/Mobile'
 import { BrowserRouter } from 'react-router-dom'
+import { useGlobal } from 'reactn'
+
 // Dynamic import
 import(
   `./Styles/Prime/Frontbase-${
@@ -35,7 +37,8 @@ function App() {
   const [device, setDevice] = useState<'desktop' | 'mobile'>(
     window.innerWidth > 800 ? 'desktop' : 'mobile'
   )
-
+  //@ts-ignore
+  const [error] = useGlobal('error')
   // Functions
   const showConnectionWarning = () => {
     //@ts-ignore
@@ -81,6 +84,12 @@ function App() {
       window.removeEventListener('resize', handleResizeWindow)
     }
   }, [])
+  // Error reporting
+  useEffect(() => {
+    if (error) {
+      console.error('Todo: render error', error)
+    }
+  }, [error])
 
   // UI
   return (

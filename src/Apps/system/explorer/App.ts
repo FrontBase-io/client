@@ -1,8 +1,8 @@
-import { PageType } from '../../../Types/Apps'
+import { ComponentType, PageType } from '../../../Types/Apps'
 import { AppService } from '../../../Utils/AppService'
 
 // Pages
-import AppViewModel from './Pages/Settings'
+import AppViewModel from './Pages/Models/Overview'
 
 export class App {
   appService: AppService | null = null
@@ -16,16 +16,17 @@ export class App {
 
   // On get pages
   onGetPages = (callback: (pages: PageType[]) => void) => {
+    // Fetch all models from the server
     this.appService?.getAllModels((response) => {
       if (response.success) {
-        const pages: PageType[] = (response.data || []).map((model) => {
-          return {
-            label: model.name_plural,
-            key: model.key,
-            component: AppViewModel,
-            props: { model },
-          }
-        })
+        // And return them as pages
+        const pages: PageType[] = (response.data || []).map((model) => ({
+          label: model.name_plural,
+          key: model.key,
+          icon: model.icon,
+          component: AppViewModel as ComponentType,
+          pageProps: { model },
+        }))
         callback(pages)
       }
     })

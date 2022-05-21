@@ -58,7 +58,9 @@ const DesktopApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
         <List animated>
           {pages.map((page) => (
             <Link key={page.key} to={`/${app.key}/${page.key}`}>
-              <ListItem animated>{page.label}</ListItem>
+              <ListItem animated icon={page.icon}>
+                {page.label}
+              </ListItem>
             </Link>
           ))}
         </List>
@@ -107,7 +109,7 @@ const DesktopApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
               <Route
                 path={page.key}
                 key={page.key}
-                element={<Component UI={UI as UIType} />}
+                element={<Component {...page.pageProps} UI={UI as UIType} />}
               />
             )
           })}

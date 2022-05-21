@@ -1,3 +1,4 @@
+import React from 'react'
 import { ColourType, ObjectType, UIType } from './System'
 
 export interface AppType extends ObjectType {
@@ -11,5 +12,9 @@ export interface AppType extends ObjectType {
 export interface PageType {
   label: string
   key: string
-  component: React.FC<{ UI: UIType }>
+  component: React.FC<{ [propName: string]: any; UI: UIType }>
+  icon?: string
+  pageProps?: { [propName: string]: any }
 }
+
+export type ComponentType = React.FC<{ [propName: string]: any; UI: UIType }>

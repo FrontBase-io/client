@@ -9,9 +9,10 @@ export class AppService {
   // Get objects
   getObjects = (
     modelId: string,
+    filter: { [key: string]: any } = {},
     then: (response: ObjectResponseType) => void
   ) => {
-    Server.emit('getObjects', modelId, {}, then)
+    Server.emit('getObjects', modelId, filter, then)
   }
 
   // Get models
@@ -22,6 +23,12 @@ export class AppService {
     Server.emit('getModel', modelId, then)
   }
 
+  // Report error
+  error = (error: string) => {
+    setGlobal({ error })
+  }
+
+  // Page lifecycle
   registerPage = (page: { title?: string }) => {
     if (page.title) setGlobal({ pageTitle: page.title })
     return () => {
