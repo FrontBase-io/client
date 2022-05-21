@@ -1,5 +1,4 @@
-import { ReactNode } from 'react'
-import { ColourType, ObjectType } from './System'
+import { ColourType, ObjectType, UIType } from './System'
 
 export interface AppType extends ObjectType {
   name: string
@@ -12,5 +11,5 @@ export interface AppType extends ObjectType {
 export interface PageType {
   label: string
   key: string
-  component: React.FC<{}>
+  component: React.FC<{ UI: UIType }>
 }

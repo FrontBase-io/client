@@ -1,5 +1,14 @@
+import { ModelType } from './Models'
+import { ObjectType } from './System'
+
 export interface ResponseType {
   success: boolean
-  data?: {}[]
   reason?: string
+}
+
+export interface ModelResponseType extends ResponseType {
+  data?: ModelType[]
+}
+export interface ObjectResponseType extends ResponseType {
+  data?: ObjectType[]
 }

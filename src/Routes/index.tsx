@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import { useGlobal } from 'reactn'
 import App from '../Apps/App'
 import Page from '../Pages/App/Desktop/App/Page'
+import Card from '../Components/Card'
 
 const AppRoutes: React.FC<{ apps: AppType[]; size: 'desktop' | 'mobile' }> = ({
   apps,
@@ -33,5 +34,13 @@ const Home: React.FC = () => {
     //@ts-ignore
     setCurrentApp(undefined)
   }, [])
-  return <>Home</>
+  return (
+    <Card
+      animate
+      title="Home"
+      style={{ position: 'absolute', top: 64, width: '100%' }}
+    >
+      I haven't made a desktop yet.
+    </Card>
+  )
 }

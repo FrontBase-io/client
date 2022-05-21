@@ -27,7 +27,7 @@ const App: React.FC<{ apps: AppType[]; size: 'desktop' | 'mobile' }> = ({
     appService.app = app
     //@ts-ignore
     setCurrentApp(params.appId)
-  }, [params.appId, apps])
+  }, [params.appId, apps, app, setCurrentApp])
   // Manage app lifecycle
   useEffect(() => {
     let appInstance: any
@@ -40,7 +40,7 @@ const App: React.FC<{ apps: AppType[]; size: 'desktop' | 'mobile' }> = ({
             if (appInstance && appInstance.onAppStart) appInstance.onAppStart()
 
             // Get the pages from the app
-            setPages(await appInstance.onGetPages())
+            await appInstance.onGetPages((pages: PageType[]) => setPages(pages))
           }
         },
         () => {

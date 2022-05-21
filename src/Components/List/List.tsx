@@ -15,7 +15,7 @@ const List: React.FC<{ children: any; animated?: true }> = ({
       className={styles.list}
       variants={{
         open: {
-          transition: { staggerChildren: 0.03 },
+          transition: { staggerChildren: 0.07 },
         },
         closed: {
           transition: { staggerChildren: 0.01, staggerDirection: -1 },

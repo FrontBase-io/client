@@ -1,27 +1,23 @@
 import styles from './styles.module.scss'
-import { motion, useCycle } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 import { AppType, PageType } from '../../../../Types/Apps'
-import { useEffect } from 'react'
 import { colour } from '../../../../Utils/Helpers/colours'
 
 import { Link, Route, Routes } from 'react-router-dom'
 
 import List from '../../../../Components/List/List'
 import ListItem from '../../../../Components/List/ListItem'
+import UI from '../../../../Components/UI'
+import { UIType } from '../../../../Types/System'
 
 const DesktopApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
   pages,
   app,
 }) => {
   // Vars
-  const [isOpen, toggleOpen] = useCycle(false, true)
 
   // Lifecycle
-  useEffect(() => {
-    toggleOpen()
-    return () => toggleOpen()
-  }, [])
 
   // UI
   return (
@@ -104,15 +100,18 @@ const DesktopApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
         </motion.ul> */}
       </motion.nav>
       <div className={styles.app}>
-        <div className={styles.desktopBackground} />
-        <div className={styles.appContent}>
-          <Routes>
-            {pages.map((page) => {
-              const Component = page.component
-              return <Route path={page.key} element={<Component />} />
-            })}
-          </Routes>
-        </div>
+        <Routes>
+          {pages.map((page) => {
+            const Component = page.component
+            return (
+              <Route
+                path={page.key}
+                key={page.key}
+                element={<Component UI={UI as UIType} />}
+              />
+            )
+          })}
+        </Routes>
       </div>
     </div>
   )
