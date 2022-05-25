@@ -37,7 +37,7 @@ const AppIcon: React.FC<{ app: AppType; active?: boolean }> = ({
         className={`${styles.appIcon}  p-ripple`}
         style={{ backgroundColor: colour(app.colour) }}
       >
-        <i className={`pi pi-${app.icon}`}></i>
+        <i className={`mdi mdi-${app.icon}`}></i>
         <Ripple />
       </div>
     </Link>

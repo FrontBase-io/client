@@ -52,7 +52,7 @@ const DesktopApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
             borderBottom: `1px solid ${colour(app.colour)}`,
           }}
         >
-          <i className={`pi pi-${app.icon}`}></i>
+          <i className={`mdi mdi-${app.icon}`}></i>
           <h2>{app.name}</h2>
         </div>
         <List animated>
