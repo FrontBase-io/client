@@ -1,14 +1,19 @@
-import { ModelType } from '../../Types/Models'
+import { ModelOverviewType, ModelType } from '../../Types/Models'
 import { Card, Icon } from '../UI'
 import { useEffect, useState } from 'react'
 import { ObjectType } from '../../Types/System'
 import appService from '../../Utils/AppService'
 import { Checkbox } from 'primereact/checkbox'
+import Loading from '../Loading'
 
-const ModelOverview: React.FC<{ model: ModelType }> = ({ model }) => {
+const ModelOverview: React.FC<{ model: ModelType; overviewId?: string }> = ({
+  model,
+  overviewId,
+}) => {
   // Vars
   const [objects, setObjects] = useState<ObjectType[]>()
   const [selectedObjects, setSelectedObjects] = useState<string[]>([])
+  const [overview, setOverview] = useState<ModelOverviewType | null>()
 
   const toggleSelectedObject = (objectId: string) => {
     if (selectedObjects.includes(objectId)) {
@@ -17,6 +22,7 @@ const ModelOverview: React.FC<{ model: ModelType }> = ({ model }) => {
       setSelectedObjects([...selectedObjects, objectId])
     }
   }
+
   // Lifecycle
   useEffect(() => {
     appService.getObjects(model.key, {}, (response) => {
@@ -26,8 +32,19 @@ const ModelOverview: React.FC<{ model: ModelType }> = ({ model }) => {
         appService.error(response.reason!)
       }
     })
+
+    // On change of model, reset the objects to avoid a clash
+    return () => {
+      setObjects([])
+      setOverview(null)
+    }
   }, [model.key])
+  useEffect(() => {
+    setOverview(model.overviews[overviewId ?? 'default'])
+  }, [overviewId, model])
+
   // UI
+  if (!overview) return <Loading />
   return (
     <Card
       animate
@@ -52,7 +69,9 @@ const ModelOverview: React.FC<{ model: ModelType }> = ({ model }) => {
           <thead>
             <tr>
               <th />
-              <th>Name</th>
+              {overview.layout.fields.map((fieldKey) => (
+                <th key={fieldKey}>{model.fields[fieldKey]?.label ?? '??'}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -64,7 +83,9 @@ const ModelOverview: React.FC<{ model: ModelType }> = ({ model }) => {
                     checked={selectedObjects.includes(object._id)}
                   ></Checkbox>
                 </td>
-                <td>{object[model.primary]}</td>
+                {overview.layout.fields.map((fieldKey) => (
+                  <td key={fieldKey}>{object[fieldKey]}</td>
+                ))}
               </tr>
             ))}
           </tbody>

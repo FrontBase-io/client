@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import Routes from '../../../Routes'
 import { useGlobal } from 'reactn'
 import Animate from '../../../Components/Animation'
+import { Ripple } from 'primereact/ripple'
 
 const DesktopLayout: React.FC = () => {
   // Vars
@@ -31,8 +32,9 @@ const DesktopLayout: React.FC = () => {
   return (
     <div className={styles.desktop}>
       <div className={styles.appbar}>
-        <Link to="/">
+        <Link to="/" className="p-ripple">
           <img src="/logo.png" className={styles.logo} alt="Frontbase" />
+          <Ripple />
         </Link>
         {apps.map((app) => (
           <AppIcon app={app} key={app._id} active={app.key === currentApp} />
