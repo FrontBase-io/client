@@ -1,0 +1,35 @@
+.root {
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    thead {
+      th {
+        text-align: left;
+      }
+    }
+
+    tbody {
+      a {
+        display: block;
+      }
+      tr {
+        height: 80px;
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+
+        &:hover {
+          background-color: var(--surface-100);
+        }
+        td {
+          text-align: left;
+
+          &:first-child {
+            width: 50px;
+            padding-left: 15px;
+          }
+        }
+      }
+    }
+  }
+}

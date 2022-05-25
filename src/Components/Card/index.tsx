@@ -7,7 +7,9 @@ const Card: React.FC<{
   children: JSX.Element | string
   animate?: true
   style?: CSSProperties
-}> = ({ children, title, animate, style }) => {
+  className?: string
+  withoutPadding?: true
+}> = ({ children, title, animate, style, className, withoutPadding }) => {
   // Vars
 
   // Lifecycle
@@ -23,10 +25,17 @@ const Card: React.FC<{
             }
           : {}
       }
-      className={`${styles.card} ${animate ? styles.animate : ''}`}
-      style={style}
+      className={`${styles.card} ${animate ? styles.animate : ''} ${className}`}
+      style={{ ...style, padding: withoutPadding ? '0' : '0.6rem' }}
     >
-      {title && <h2 className={styles.title}>{title}</h2>}
+      {title && (
+        <h2
+          className={styles.title}
+          style={{ margin: withoutPadding ? '0.6rem' : '0' }}
+        >
+          {title}
+        </h2>
+      )}
       {children}
     </motion.div>
   )

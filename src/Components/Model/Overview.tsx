@@ -5,15 +5,20 @@ import { ObjectType } from '../../Types/System'
 import appService from '../../Utils/AppService'
 import { Checkbox } from 'primereact/checkbox'
 import Loading from '../Loading'
+import styles from './Overview.module.scss'
+import { Ripple } from 'primereact/ripple'
+import { useNavigate } from 'react-router-dom'
 
-const ModelOverview: React.FC<{ model: ModelType; overviewId?: string }> = ({
-  model,
-  overviewId,
-}) => {
+const ModelOverview: React.FC<{
+  model: ModelType
+  overviewId?: string
+  baseUrl: string
+}> = ({ model, overviewId, baseUrl }) => {
   // Vars
   const [objects, setObjects] = useState<ObjectType[]>()
   const [selectedObjects, setSelectedObjects] = useState<string[]>([])
   const [overview, setOverview] = useState<ModelOverviewType | null>()
+  const navigate = useNavigate()
 
   const toggleSelectedObject = (objectId: string) => {
     if (selectedObjects.includes(objectId)) {
@@ -48,6 +53,7 @@ const ModelOverview: React.FC<{ model: ModelType; overviewId?: string }> = ({
   return (
     <Card
       animate
+      withoutPadding
       title={
         <>
           {model.icon && (
@@ -63,6 +69,7 @@ const ModelOverview: React.FC<{ model: ModelType; overviewId?: string }> = ({
           {model.name_plural}
         </>
       }
+      className={styles.root}
     >
       {objects ? (
         <table>
@@ -76,7 +83,13 @@ const ModelOverview: React.FC<{ model: ModelType; overviewId?: string }> = ({
           </thead>
           <tbody>
             {objects.map((object) => (
-              <tr key={object._id}>
+              <tr
+                key={object._id}
+                className="p-ripple"
+                onClick={() =>
+                  navigate(`${baseUrl}/${model.key}/${object._id}`)
+                }
+              >
                 <td>
                   <Checkbox
                     onChange={(e) => toggleSelectedObject(object._id)}
@@ -85,7 +98,8 @@ const ModelOverview: React.FC<{ model: ModelType; overviewId?: string }> = ({
                 </td>
                 {overview.layout.fields.map((fieldKey) => (
                   <td key={fieldKey}>{object[fieldKey]}</td>
-                ))}
+                ))}{' '}
+                <Ripple />
               </tr>
             ))}
           </tbody>
@@ -98,3 +112,6 @@ const ModelOverview: React.FC<{ model: ModelType; overviewId?: string }> = ({
 }
 
 export default ModelOverview
+function useHistory() {
+  throw new Error('Function not implemented.')
+}

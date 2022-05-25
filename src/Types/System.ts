@@ -36,6 +36,6 @@ export interface UIType {
 
   // Model
   Model: {
-    Overview: React.FC<{ model: ModelType }>
+    Overview: React.FC<{ model: ModelType; baseUrl: string }>
   }
 }

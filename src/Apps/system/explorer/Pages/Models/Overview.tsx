@@ -15,7 +15,7 @@ const AppViewModel: React.FC<{ UI: UIType; model: ModelType }> = ({
     return () => unregister()
   }, [model])
   // UI
-  return <UI.Model.Overview model={model} />
+  return <UI.Model.Overview model={model} baseUrl="/explorer" />
 }
 
 export default AppViewModel
