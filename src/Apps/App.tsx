@@ -66,7 +66,7 @@ const App: React.FC<{ apps: AppType[]; size: 'desktop' | 'mobile' }> = ({
     size === 'desktop' ? (
       <DesktopApp pages={pages} app={app} />
     ) : (
-      <MobileApp pages={pages} />
+      <MobileApp pages={pages} app={app} />
     )
   ) : (
     <Loading />

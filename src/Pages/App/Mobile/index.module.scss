@@ -1,0 +1,51 @@
+.root {
+  background-color: red;
+  .background {
+    background-color: var(--primary-color);
+    height: 40vh;
+  }
+
+  .pageContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+    .navBar {
+      height: 64px;
+      line-height: 64px;
+      padding-left: 10px;
+      padding-right: 10px;
+      box-sizing: border-box;
+      display: flex;
+      gap: 20px;
+
+      .logo {
+        width: 40px;
+        height: 40px;
+        margin-top: 10px;
+      }
+
+      .title {
+        flex: 1;
+        h1 {
+          font-size: 1.6rem;
+          margin: 0;
+          padding: 0;
+          color: white;
+          font-weight: normal;
+        }
+      }
+      .icons {
+        color: white;
+        font-size: 1.6rem;
+      }
+    }
+    .content {
+      flex: 1;
+    }
+  }
+}

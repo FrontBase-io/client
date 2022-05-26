@@ -6,7 +6,8 @@ const ListItem: React.FC<{
   children: any
   animated?: true
   icon?: string
-}> = ({ children, animated, icon }) => {
+  onClick?: () => void
+}> = ({ children, animated, icon, onClick }) => {
   // Vars
 
   // Lifecycle
@@ -32,13 +33,14 @@ const ListItem: React.FC<{
       }}
       whileTap={{ scale: 0.995 }}
       className="p-ripple colouredRipple"
+      onClick={onClick}
     >
-      {icon && <i className={`pi pi-${icon}`} style={{ marginRight: 12 }} />}
+      {icon && <i className={`mdi mdi-${icon}`} style={{ marginRight: 12 }} />}
       {children} <Ripple />
     </motion.li>
   ) : (
-    <li className={`p-ripple ${styles.li}`}>
-      {icon && <i className={`pi pi-${icon}`} style={{ marginRight: 12 }} />}
+    <li className={`p-ripple ${styles.li}`} onClick={onClick}>
+      {icon && <i className={`mdi mdi-${icon}`} style={{ marginRight: 12 }} />}
       {children} <Ripple />
     </li>
   )
