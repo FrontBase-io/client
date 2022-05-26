@@ -26,6 +26,7 @@ const MobileMenu: React.FC<{ apps: AppType[] }> = ({ apps }) => {
             <ListItem
               animated
               key={app._id}
+              icon={app.icon}
               onClick={() => {
                 navigate(`/${app.key}`)
                 setShowSidebar(false)

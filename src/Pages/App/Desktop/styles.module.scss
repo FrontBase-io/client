@@ -1,5 +1,4 @@
 .desktop {
-  display: flex;
   height: 100vh;
   width: 100vw;
 
@@ -24,7 +23,11 @@
   }
 
   .appcontainer {
-    flex: 1;
+    position: absolute;
+    left: 64px;
+    top: 0;
+    width: calc(100vw - 64px);
+    height: 100vh;
     .desktopBackground {
       background-color: var(--primary-color);
       width: 100%;

@@ -20,7 +20,14 @@ const MobileApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
         {pages.map((page) => {
           const Component = page.component
           return (
-            <TabPanel leftIcon={`mdi mdi-${page.icon}`} key={page.key}>
+            <TabPanel
+              leftIcon={`mdi mdi-${page.icon}`}
+              header={page.label}
+              key={page.key}
+              headerStyle={{
+                '&.p-tabview-ink-bar': { borderBottom: '10px solid black' },
+              }}
+            >
               <div className={styles.appContent}>
                 <Component {...page.pageProps} UI={UI as UIType} />
               </div>

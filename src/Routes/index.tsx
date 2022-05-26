@@ -38,7 +38,7 @@ const Home: React.FC = () => {
     <Card
       animate
       title="Home"
-      style={{ position: 'absolute', top: 64, width: '100%' }}
+      style={{ position: 'absolute', top: 64, width: 'calc(100% - 20px)' }}
     >
       I haven't made a desktop yet.
     </Card>

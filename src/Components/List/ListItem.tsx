@@ -32,7 +32,7 @@ const ListItem: React.FC<{
         },
       }}
       whileTap={{ scale: 0.995 }}
-      className="p-ripple colouredRipple"
+      className={`${styles.li} p-ripple colouredRipple`}
       onClick={onClick}
     >
       {icon && <i className={`mdi mdi-${icon}`} style={{ marginRight: 12 }} />}
