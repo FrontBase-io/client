@@ -1,5 +1,4 @@
 import { ModelOverviewType, ModelType } from '../../Types/Models'
-import { Card, Icon } from '../UI'
 import { useEffect, useState } from 'react'
 import { ObjectType } from '../../Types/System'
 import appService from '../../Utils/AppService'
@@ -8,6 +7,8 @@ import Loading from '../Loading'
 import styles from './Overview.module.scss'
 import { Ripple } from 'primereact/ripple'
 import { useNavigate } from 'react-router-dom'
+import Card from '../Card'
+import Icon from '../Icon'
 
 const ModelOverview: React.FC<{
   model: ModelType

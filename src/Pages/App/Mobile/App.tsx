@@ -4,7 +4,6 @@ import { TabView, TabPanel } from 'primereact/tabview'
 import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import UI from '../../../Components/UI'
-import { UIType } from '../../../Types/System'
 
 const reducePages = (pages: PageType[]) => {
   const result: PageType[] = []
@@ -71,18 +70,13 @@ const MobileApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
                   <Routes>
                     <Route
                       path={`/${page.key}`}
-                      element={
-                        <Component {...page.pageProps} UI={UI as UIType} />
-                      }
+                      element={<Component {...page.pageProps} UI={UI} />}
                     />
                     {DetailComponent && (
                       <Route
                         path={`/${page.key}/:objectId`}
                         element={
-                          <DetailComponent
-                            {...page.detailPageProps}
-                            UI={UI as UIType}
-                          />
+                          <DetailComponent {...page.detailPageProps} UI={UI} />
                         }
                       />
                     )}

@@ -2,14 +2,23 @@ import { motion } from 'framer-motion'
 import { CSSProperties } from 'react'
 import styles from './styles.module.scss'
 
-const Card: React.FC<{
+export interface CardProps {
   title?: string | JSX.Element
   children: JSX.Element | string
   animate?: true
   style?: CSSProperties
   className?: string
   withoutPadding?: true
-}> = ({ children, title, animate, style, className, withoutPadding }) => {
+}
+
+const Card: React.FC<CardProps> = ({
+  children,
+  title,
+  animate,
+  style,
+  className,
+  withoutPadding,
+}) => {
   // Vars
 
   // Lifecycle

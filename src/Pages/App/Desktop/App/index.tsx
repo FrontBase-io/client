@@ -120,7 +120,7 @@ const PageItem: React.FC<{ page: PageType; app: AppType; indent: number }> = ({
 }) => {
   return page.header ? (
     <>
-      <ListHeader />
+      <ListHeader>{page.label}</ListHeader>
       {(page.items ?? []).map((subItem) => (
         <PageItem page={subItem} app={app} indent={indent} key={subItem.key} />
       ))}

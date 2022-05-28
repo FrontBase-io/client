@@ -1,6 +1,8 @@
 import { AppService } from '../Utils/AppService'
 import { PageType } from './Apps'
 import { ModelType } from './Models'
+import { CardProps } from '../Components/Card'
+import { ListDetailLayoutProps } from '../Components/ListDetailLayout/ListDetailLayout'
 
 export interface ObjectType {
   _id: string
@@ -24,11 +26,7 @@ export class AppType {
 }
 
 export interface UIType {
-  Card: React.FC<{
-    title?: JSX.Element | string
-    children?: JSX.Element | string
-    animate?: true
-  }>
+  Card: React.FC<CardProps>
   Icon: React.FC<{
     icon: string
     style?: React.CSSProperties
@@ -43,5 +41,8 @@ export interface UIType {
       object: ObjectType
       layoutId: string
     }>
+  }
+  Layouts: {
+    ListDetailLayout: React.FC<ListDetailLayoutProps>
   }
 }

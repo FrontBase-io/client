@@ -34,6 +34,9 @@ function App() {
   const [user, setUser] = useState<UserType | null | undefined>(undefined)
   const [serverIsReady, setServerIsReady] = useState(true)
   const toast = useRef(null)
+  //@ts-ignore
+  const [_, setScreenSize] = useGlobal<string>('screenSize')
+  //@ts-ignore
   const [device, setDevice] = useState<'desktop' | 'mobile'>(
     window.innerWidth > 800 ? 'desktop' : 'mobile'
   )
@@ -76,9 +79,26 @@ function App() {
     socket.on('disconnect', () => showConnectionWarning())
 
     // Track the window's width
-    const handleResizeWindow = () =>
+    const handleResizeWindow = () => {
       setDevice(window.innerWidth > 800 ? 'desktop' : 'mobile')
-
+      if (window.innerWidth > 1536) {
+        //@ts-ignore
+        setScreenSize('xl')
+      } else if (window.innerWidth > 1280) {
+        //@ts-ignore
+        setScreenSize('lg')
+      } else if (window.innerWidth > 900) {
+        //@ts-ignore
+        setScreenSize('md')
+      } else if (window.innerWidth > 600) {
+        //@ts-ignore
+        setScreenSize('sm')
+      } else {
+        //@ts-ignore
+        setScreenSize('xs')
+      }
+    }
+    handleResizeWindow()
     window.addEventListener('resize', handleResizeWindow)
     return () => {
       window.removeEventListener('resize', handleResizeWindow)
