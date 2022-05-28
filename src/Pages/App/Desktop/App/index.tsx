@@ -64,53 +64,32 @@ const DesktopApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
             </Link>
           ))}
         </List>
-        {/* <motion.ul
-          variants={{
-            open: {
-              transition: { staggerChildren: 0.03 },
-            },
-            closed: {
-              transition: { staggerChildren: 0.01, staggerDirection: -1 },
-            },
-          }}
-        >
-          {pages.map((page) => (
-            <Link key={page.key} to={`/${app.key}/${page.key}`}>
-              <motion.li
-                variants={{
-                  open: {
-                    y: 0,
-                    opacity: 1,
-                    transition: {
-                      y: { stiffness: 1000, velocity: -100 },
-                    },
-                  },
-                  closed: {
-                    y: 10,
-                    opacity: 0,
-                    transition: {
-                      y: { stiffness: 1000 },
-                    },
-                  },
-                }}
-                whileTap={{ scale: 0.995 }}
-              >
-                {page.label}
-              </motion.li>
-            </Link>
-          ))}
-        </motion.ul> */}
       </motion.nav>
       <div className={styles.app}>
         <Routes>
           {pages.map((page) => {
             const Component = page.component
+            const DetailComponent = page.detailComponent
             return (
-              <Route
-                path={page.key}
-                key={page.key}
-                element={<Component {...page.pageProps} UI={UI as UIType} />}
-              />
+              <>
+                <Route
+                  path={page.key}
+                  key={page.key}
+                  element={<Component {...page.pageProps} UI={UI as UIType} />}
+                />
+                {DetailComponent && (
+                  <Route
+                    path={`${page.key}/:objectId`}
+                    key={`${page.key}-detail`}
+                    element={
+                      <DetailComponent
+                        {...page.detailPageProps}
+                        UI={UI as UIType}
+                      />
+                    }
+                  />
+                )}
+              </>
             )
           })}
         </Routes>

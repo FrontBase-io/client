@@ -1,4 +1,8 @@
-import { ModelResponseType, ObjectResponseType } from '../Types/Server'
+import {
+  ModelResponseType,
+  ObjectResponseType,
+  SingleObjectResponseType,
+} from '../Types/Server'
 import Server from './Socket'
 import { AppType } from '../Types/Apps'
 import { setGlobal } from 'reactn'
@@ -13,6 +17,12 @@ export class AppService {
     then: (response: ObjectResponseType) => void
   ) => {
     Server.emit('getObjects', modelId, filter, then)
+  }
+  getObject = (
+    objectId: string,
+    then: (response: SingleObjectResponseType) => void
+  ) => {
+    Server.emit('getObject', objectId, then)
   }
 
   // Get models
@@ -29,10 +39,11 @@ export class AppService {
   }
 
   // Page lifecycle
-  registerPage = (page: { title?: string }) => {
+  registerPage = (page: { title?: string; up?: string }) => {
     if (page.title) setGlobal({ pageTitle: page.title })
+    if (page.up) setGlobal({ pageUp: page.up })
     return () => {
-      setGlobal({ pageTitle: null })
+      setGlobal({ pageTitle: null, pageUp: null })
     }
   }
 }

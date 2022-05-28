@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 
 const AnimateRight: React.FC<{ children: JSX.Element }> = ({ children }) => (
-  <motion.div
+  <motion.span
     animate={{ opacity: 1, paddingLeft: 0 }}
     transition={{
       default: { duration: 0.3 },
@@ -12,10 +12,10 @@ const AnimateRight: React.FC<{ children: JSX.Element }> = ({ children }) => (
     }}
   >
     {children}
-  </motion.div>
+  </motion.span>
 )
 const AnimateLeft: React.FC<{ children: JSX.Element }> = ({ children }) => (
-  <motion.div
+  <motion.span
     animate={{ opacity: 1, paddingRight: 0 }}
     transition={{
       default: { duration: 0.3 },
@@ -26,11 +26,11 @@ const AnimateLeft: React.FC<{ children: JSX.Element }> = ({ children }) => (
     }}
   >
     {children}
-  </motion.div>
+  </motion.span>
 )
 
 const AnimateBottom: React.FC<{ children: JSX.Element }> = ({ children }) => (
-  <motion.div
+  <motion.span
     animate={{ opacity: 1, paddingTop: 0 }}
     transition={{
       default: { duration: 0.3 },
@@ -41,10 +41,10 @@ const AnimateBottom: React.FC<{ children: JSX.Element }> = ({ children }) => (
     }}
   >
     {children}
-  </motion.div>
+  </motion.span>
 )
 const AnimateTop: React.FC<{ children: JSX.Element }> = ({ children }) => (
-  <motion.div
+  <motion.span
     animate={{ opacity: 1, paddingBottom: 0 }}
     transition={{
       default: { duration: 0.3 },
@@ -55,7 +55,7 @@ const AnimateTop: React.FC<{ children: JSX.Element }> = ({ children }) => (
     }}
   >
     {children}
-  </motion.div>
+  </motion.span>
 )
 
 const Animate: React.FC<{

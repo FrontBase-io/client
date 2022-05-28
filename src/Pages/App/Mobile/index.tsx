@@ -3,22 +3,21 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Icon from '../../../Components/Icon'
 import styles from './index.module.scss'
-import { Sidebar } from 'primereact/sidebar'
-import List from '../../../Components/List/List'
 import { AppType } from '../../../Types/Apps'
 import appService from '../../../Utils/AppService'
 import { useGlobal } from 'reactn'
-import ListItem from '../../../Components/List/ListItem'
 import MobileMenu from './Menu'
 import Routes from '../../../Routes'
+import Animate from '../../../Components/Animation'
 
 const MobileLayout: React.FC = () => {
   // Vars
   const [apps, setApps] = useState<AppType[]>([])
-  //@ts-ignore
-  const [currentApp] = useGlobal('currentApp')
+
   //@ts-ignore
   const [pageTitle] = useGlobal('pageTitle')
+  //@ts-ignore
+  const [pageUp] = useGlobal('pageUp')
 
   // Lifecycle
   useEffect(() => {
@@ -40,7 +39,20 @@ const MobileLayout: React.FC = () => {
           <MobileMenu apps={apps} />
 
           <Link to="/" className={`${styles.title} p-ripple`}>
-            <h1>FrontBase</h1>
+            {pageTitle && (
+              <Animate direction="right">
+                <h1>
+                  {pageUp && (
+                    <Link to={pageUp}>
+                      <Animate direction="up">
+                        <Icon icon="chevron-left" />
+                      </Animate>
+                    </Link>
+                  )}
+                  {pageTitle}
+                </h1>
+              </Animate>
+            )}
             <Ripple />
           </Link>
           <div className={styles.icons}>

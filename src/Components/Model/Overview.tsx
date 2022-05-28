@@ -85,9 +85,8 @@ const ModelOverview: React.FC<{
             {objects.map((object) => (
               <tr
                 key={object._id}
-                className="p-ripple"
                 onClick={() =>
-                  navigate(`${baseUrl}/${model.key}/${object._id}`)
+                  navigate(`${baseUrl}/${model.key_plural}/${object._id}`)
                 }
               >
                 <td>
@@ -97,9 +96,10 @@ const ModelOverview: React.FC<{
                   ></Checkbox>
                 </td>
                 {overview.layout.fields.map((fieldKey) => (
-                  <td key={fieldKey}>{object[fieldKey]}</td>
+                  <td key={fieldKey} className="p-ripple">
+                    {object[fieldKey]} <Ripple />
+                  </td>
                 ))}{' '}
-                <Ripple />
               </tr>
             ))}
           </tbody>

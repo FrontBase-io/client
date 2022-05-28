@@ -12,9 +12,13 @@ export interface AppType extends ObjectType {
 export interface PageType {
   label: string
   key: string
-  component: React.FC<{ [propName: string]: any; UI: UIType }>
   icon?: string
+
+  component: React.FC<{ [propName: string]: any; UI: UIType }>
   pageProps?: { [propName: string]: any }
+
+  detailComponent?: React.FC<any>
+  detailPageProps?: { [propName: string]: any }
 }
 
 export type ComponentType = React.FC<{ [propName: string]: any; UI: UIType }>

@@ -39,7 +39,7 @@ const ListItem: React.FC<{
       {children} <Ripple />
     </motion.li>
   ) : (
-    <li className={`p-ripple ${styles.li}`} onClick={onClick}>
+    <li className={`p-ripple colouredRipple ${styles.li}`} onClick={onClick}>
       {icon && <i className={`mdi mdi-${icon}`} style={{ marginRight: 12 }} />}
       {children} <Ripple />
     </li>

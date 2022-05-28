@@ -1,5 +1,6 @@
 import { ComponentType, PageType } from '../../../Types/Apps'
 import { AppService } from '../../../Utils/AppService'
+import Detail from './Pages/Models/Detail'
 
 // Pages
 import AppViewModel from './Pages/Models/Overview'
@@ -20,14 +21,17 @@ export class App {
     this.appService?.getAllModels((response) => {
       if (response.success) {
         // And return them as pages
-        const pages: PageType[] = (response.data || []).map((model) => ({
-          label: model.name_plural,
-          key: model.key,
-          icon: model.icon,
-          component: AppViewModel as ComponentType,
-          pageProps: { model },
-        }))
-        callback(pages)
+        callback(
+          (response.data || []).map((model) => ({
+            label: model.name_plural,
+            key: model.key_plural,
+            icon: model.icon,
+            component: AppViewModel as ComponentType,
+            pageProps: { model },
+            detailComponent: Detail,
+            detailPageProps: { model },
+          }))
+        )
       }
     })
   }

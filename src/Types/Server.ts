@@ -12,3 +12,6 @@ export interface ModelResponseType extends ResponseType {
 export interface ObjectResponseType extends ResponseType {
   data?: ObjectType[]
 }
+export interface SingleObjectResponseType extends ResponseType {
+  data?: ObjectType
+}

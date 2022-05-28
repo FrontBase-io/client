@@ -30,6 +30,7 @@ const AppIcon: React.FC<{ app: AppType; active?: boolean }> = ({
         position="right"
         event="hover"
         showDelay={0}
+        disabled={active}
       />
 
       <div

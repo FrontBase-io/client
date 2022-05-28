@@ -8,6 +8,7 @@ import Routes from '../../../Routes'
 import { useGlobal } from 'reactn'
 import Animate from '../../../Components/Animation'
 import { Ripple } from 'primereact/ripple'
+import Icon from '../../../Components/Icon'
 
 const DesktopLayout: React.FC = () => {
   // Vars
@@ -16,6 +17,8 @@ const DesktopLayout: React.FC = () => {
   const [currentApp] = useGlobal('currentApp')
   //@ts-ignore
   const [pageTitle] = useGlobal('pageTitle')
+  //@ts-ignore
+  const [pageUp] = useGlobal('pageUp')
 
   // Lifecycle
   useEffect(() => {
@@ -45,7 +48,14 @@ const DesktopLayout: React.FC = () => {
         <div className={styles.headerBar}>
           {pageTitle && (
             <Animate direction="right">
-              <h1>{pageTitle}</h1>
+              <h1>
+                {pageUp && (
+                  <Link to={pageUp}>
+                    <Icon icon="chevron-left" />
+                  </Link>
+                )}
+                {pageTitle}
+              </h1>
             </Animate>
           )}
         </div>
