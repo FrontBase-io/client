@@ -6,6 +6,7 @@ import {
 import Server from './Socket'
 import { AppType } from '../Types/Apps'
 import { setGlobal } from 'reactn'
+import { ObjectType } from '../Types/System'
 
 export class AppService {
   app: AppType | undefined = undefined
@@ -14,15 +15,32 @@ export class AppService {
   getObjects = (
     modelId: string,
     filter: { [key: string]: any } = {},
-    then: (response: ObjectResponseType) => void
+    respond: (objects: ObjectType[]) => void
   ) => {
-    Server.emit('getObjects', modelId, filter, then)
+    const onReceive = (objects: ObjectType[]) => respond(objects)
+
+    Server.emit('getObjects', modelId, filter, (queryKey: string) => {
+      Server.on(`receive-${queryKey}`, (response: ObjectResponseType) => {
+        if (response.success) {
+          onReceive(response.data!)
+        } else {
+          console.error(response.reason)
+        }
+      })
+    })
   }
-  getObject = (
-    objectId: string,
-    then: (response: SingleObjectResponseType) => void
-  ) => {
-    Server.emit('getObject', objectId, then)
+  getObject = (objectId: string, respond: (object: ObjectType) => void) => {
+    const onReceive = (object: ObjectType) => respond(object)
+
+    Server.emit('getObject', objectId, (queryKey: string) => {
+      Server.on(`receive-${queryKey}`, (response: SingleObjectResponseType) => {
+        if (response.success) {
+          onReceive(response.data!)
+        } else {
+          console.error(response.reason)
+        }
+      })
+    })
   }
 
   // Get models

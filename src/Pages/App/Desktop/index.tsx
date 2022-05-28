@@ -22,12 +22,9 @@ const DesktopLayout: React.FC = () => {
 
   // Lifecycle
   useEffect(() => {
-    appService.getObjects('app', {}, (response) => {
-      if (response.success) {
-        setApps(response.data as AppType[])
-      } else {
-        console.error(response.reason)
-      }
+    appService.getObjects('app', {}, (_apps) => {
+      console.log('agfewuifa', _apps)
+      setApps(_apps as AppType[])
     })
   }, [])
 

@@ -13,9 +13,7 @@ const Detail: React.FC<{ UI: UIType; model: ModelType }> = ({ model }) => {
   // Lifecycle
   useEffect(() => {
     if (objectId) {
-      appService.getObject(objectId, (response) => {
-        setObject(response.data)
-      })
+      appService.getObject(objectId, (_object) => setObject(_object))
     }
   }, [objectId])
   useEffect(() => {

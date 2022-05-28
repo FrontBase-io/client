@@ -4,6 +4,7 @@ import { ObjectType } from './System'
 export interface ResponseType {
   success: boolean
   reason?: string
+  key?: string
 }
 
 export interface ModelResponseType extends ResponseType {

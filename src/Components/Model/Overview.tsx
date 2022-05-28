@@ -30,12 +30,8 @@ const ModelOverview: React.FC<{
 
   // Lifecycle
   useEffect(() => {
-    appService.getObjects(model.key, {}, (response) => {
-      if (response.success) {
-        setObjects(response.data)
-      } else {
-        appService.error(response.reason!)
-      }
+    appService.getObjects(model.key, {}, (_objects) => {
+      setObjects(_objects)
     })
 
     // On change of model, reset the objects to avoid a clash
