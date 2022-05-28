@@ -4,6 +4,8 @@ import { ObjectType, UIType } from '../../../../../Types/System'
 import appService from '../../../../../Utils/AppService'
 import { useState } from 'react'
 import { ModelType } from '../../../../../Types/Models'
+import UI from '../../../../../Components/UI'
+import Loading from '../../../../../Components/Loading'
 
 const Detail: React.FC<{ UI: UIType; model: ModelType }> = ({ model }) => {
   // Vars
@@ -27,7 +29,8 @@ const Detail: React.FC<{ UI: UIType; model: ModelType }> = ({ model }) => {
   }, [object, model])
 
   // UI
-  return <>Detail {JSON.stringify(object)}</>
+  if (!object) return <Loading />
+  return <UI.Model.Object object={object} model={model} layoutId="default" />
 }
 
 export default Detail

@@ -37,6 +37,11 @@ export interface UIType {
   // Model
   Model: {
     Overview: React.FC<{ model: ModelType; baseUrl: string }>
-    Object: React.FC<{ model: ModelType; baseUrl: string; object: ObjectType }>
+    Object: React.FC<{
+      model: ModelType
+      baseUrl: string
+      object: ObjectType
+      layoutId: string
+    }>
   }
 }

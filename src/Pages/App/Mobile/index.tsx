@@ -22,7 +22,6 @@ const MobileLayout: React.FC = () => {
   // Lifecycle
   useEffect(() => {
     appService.getObjects('app', {}, (_apps) => {
-      console.log('agfewuifa', _apps)
       setApps(_apps as AppType[])
     })
   }, [])
