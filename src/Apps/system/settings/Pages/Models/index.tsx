@@ -25,6 +25,8 @@ const SettingsModels: React.FC<{ UI: UIType }> = ({ UI }) => {
       list={models}
       component={ModelDetail}
       primary="name"
+      baseUrl="/settings/models"
+      linkKey="key"
     />
   )
 }

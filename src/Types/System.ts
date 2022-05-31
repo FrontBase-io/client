@@ -3,6 +3,7 @@ import { PageType } from './Apps'
 import { ModelType } from './Models'
 import { CardProps } from '../Components/Card'
 import { ListDetailLayoutProps } from '../Components/ListDetailLayout/ListDetailLayout'
+import { TabProps } from '../Components/Tabs/Tabs'
 
 export interface ObjectType {
   _id: string
@@ -45,4 +46,5 @@ export interface UIType {
   Layouts: {
     ListDetailLayout: React.FC<ListDetailLayoutProps>
   }
+  Tabs: React.FC<TabProps>
 }

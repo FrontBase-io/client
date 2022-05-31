@@ -68,10 +68,6 @@ const MobileApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
               >
                 <div className={styles.appContent}>
                   <Routes>
-                    <Route
-                      path={`/${page.key}`}
-                      element={<Component {...page.pageProps} UI={UI} />}
-                    />
                     {DetailComponent && (
                       <Route
                         path={`/${page.key}/:objectId`}
@@ -80,6 +76,10 @@ const MobileApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
                         }
                       />
                     )}
+                    <Route
+                      path={`/${page.key}/*`}
+                      element={<Component {...page.pageProps} UI={UI} />}
+                    />
                   </Routes>
                 </div>
               </TabPanel>

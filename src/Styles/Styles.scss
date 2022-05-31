@@ -48,3 +48,19 @@ a {
     color: var(--primary-color);
   }
 }
+
+.white-tabs {
+  &.p-tabview .p-tabview-nav,
+  &.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link,
+  &.p-tabview .p-tabview-nav li .p-tabview-nav-link,
+  .p-tabview-title {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: white !important;
+    border-bottom: 1px solid transparent;
+  }
+  &.p-tabview .p-tabview-nav .p-tabview-ink-bar {
+    background-color: white !important;
+    height: 50px;
+  }
+}

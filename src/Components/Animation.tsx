@@ -2,10 +2,8 @@ import { motion } from 'framer-motion'
 
 const AnimateRight: React.FC<{ children: JSX.Element }> = ({ children }) => (
   <motion.span
-    animate={{ opacity: 1, paddingLeft: 0 }}
-    transition={{
-      default: { duration: 0.3 },
-    }}
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1, paddingLeft: 0 }}
     style={{
       paddingLeft: 10,
       opacity: 0,
@@ -16,7 +14,8 @@ const AnimateRight: React.FC<{ children: JSX.Element }> = ({ children }) => (
 )
 const AnimateLeft: React.FC<{ children: JSX.Element }> = ({ children }) => (
   <motion.span
-    animate={{ opacity: 1, paddingRight: 0 }}
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1, paddingRight: 0 }}
     transition={{
       default: { duration: 0.3 },
     }}
@@ -31,13 +30,10 @@ const AnimateLeft: React.FC<{ children: JSX.Element }> = ({ children }) => (
 
 const AnimateBottom: React.FC<{ children: JSX.Element }> = ({ children }) => (
   <motion.span
-    animate={{ opacity: 1, paddingTop: 0 }}
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1, paddingTop: 0 }}
     transition={{
       default: { duration: 0.3 },
-    }}
-    style={{
-      paddingTop: 5,
-      opacity: 0,
     }}
   >
     {children}
@@ -45,7 +41,8 @@ const AnimateBottom: React.FC<{ children: JSX.Element }> = ({ children }) => (
 )
 const AnimateTop: React.FC<{ children: JSX.Element }> = ({ children }) => (
   <motion.span
-    animate={{ opacity: 1, paddingBottom: 0 }}
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1, paddingBottom: 0 }}
     transition={{
       default: { duration: 0.3 },
     }}

@@ -85,11 +85,6 @@ const DesktopApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
             const DetailComponent = page.detailComponent
             return (
               <>
-                <Route
-                  path={page.key}
-                  key={page.key}
-                  element={<Component {...page.pageProps} UI={UI as UIType} />}
-                />
                 {DetailComponent && (
                   <Route
                     path={`${page.key}/:objectId`}
@@ -102,6 +97,11 @@ const DesktopApp: React.FC<{ pages: PageType[]; app: AppType }> = ({
                     }
                   />
                 )}
+                <Route
+                  path={`${page.key}/*`}
+                  key={page.key}
+                  element={<Component {...page.pageProps} UI={UI as UIType} />}
+                />
               </>
             )
           })}
@@ -120,7 +120,7 @@ const PageItem: React.FC<{ page: PageType; app: AppType; indent: number }> = ({
 }) => {
   return page.header ? (
     <>
-      <ListHeader>{page.label}</ListHeader>
+      <ListHeader animated>{page.label}</ListHeader>
       {(page.items ?? []).map((subItem) => (
         <PageItem page={subItem} app={app} indent={indent} key={subItem.key} />
       ))}
