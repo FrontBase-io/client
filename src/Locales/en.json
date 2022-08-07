@@ -1,0 +1,31 @@
+{
+  "translation": {
+    "system": {
+      "connection": {
+        "connecting": "You seem to be offline. Hold up, while we reconnect!"
+      },
+      "setup": {
+        "title": "FrontBase",
+        "buttons": { "next": "Continue", "install": "Install FrontBase!" },
+        "installing": "Installing...",
+
+        "step1": {
+          "title": "Start",
+          "text": "Welcome to FrontBase! Since this is your first visit, let's get a few things set-up. "
+        },
+        "step2": {
+          "title": "Administrator",
+          "text": "We need a global administrator. This is the person that manages the system and has the highest permissions. They can create other users later."
+        },
+        "step3": {
+          "title": "Settings",
+          "text": "A few settings to choose from."
+        },
+        "step4": {
+          "title": "Install",
+          "text": "Great, are you ready to go? Press the button below to get everything ready."
+        }
+      }
+    }
+  }
+}
