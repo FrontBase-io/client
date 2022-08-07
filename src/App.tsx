@@ -61,7 +61,7 @@ function App() {
           theme={createTheme({
             palette: {
               primary: {
-                main: '#4874a8', //`${primaryColor}`,
+                main: primary,
               },
             },
           })}
