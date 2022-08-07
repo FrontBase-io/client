@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -8,7 +8,6 @@ import socket from './Utils/Socket'
 import {
   Snackbar,
   Alert,
-  Box,
   ThemeProvider,
   createTheme,
   Hidden,
@@ -21,15 +20,9 @@ import Login from './Pages/Login'
 import ServerSetup from './Pages/ServerSetup'
 import DesktopLayout from './Layouts/Desktop/Layout'
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#4874a8',
-    },
-    secondary: {
-      main: '#f50057',
-    },
-  },
+export const ColorContext = createContext({
+  primary: '#00bcd4',
+  secondary: '#00bcd4',
 })
 
 function App() {
@@ -37,8 +30,9 @@ function App() {
   const [user, setUser] = useState<UserType | null | undefined>(undefined)
   const [connected, setConnected] = useState(false)
   const [serverIsReady, setServerIsReady] = useState(true)
-
   const { t } = useTranslation()
+  const [primary, setPrimaryColor] = useState('#4874a8')
+  const [secondary, setSecondaryColor] = useState('#00bcd4')
 
   // Lifecycle
   useEffect(() => {
@@ -61,31 +55,43 @@ function App() {
 
   // UI
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        {serverIsReady ? (
-          user === undefined ? (
-            <Loading />
-          ) : user ? (
-            <>
-              <Hidden mdUp>
-                <MobileLayout />
-              </Hidden>
-              <Hidden mdDown>
-                <DesktopLayout />
-              </Hidden>
-            </>
+    <ColorContext.Provider value={{ primary, secondary }}>
+      <BrowserRouter>
+        <ThemeProvider
+          theme={createTheme({
+            palette: {
+              primary: {
+                main: '#4874a8', //`${primaryColor}`,
+              },
+            },
+          })}
+        >
+          {serverIsReady ? (
+            user === undefined ? (
+              <Loading />
+            ) : user ? (
+              <>
+                <Hidden mdUp>
+                  <MobileLayout />
+                </Hidden>
+                <Hidden mdDown>
+                  <>
+                    <DesktopLayout />
+                  </>
+                </Hidden>
+              </>
+            ) : (
+              <Login />
+            )
           ) : (
-            <Login />
-          )
-        ) : (
-          <ServerSetup />
-        )}
-        <Snackbar open={!connected}>
-          <Alert severity="info">{t('system.connection.connecting')}</Alert>
-        </Snackbar>
-      </ThemeProvider>
-    </BrowserRouter>
+            <ServerSetup />
+          )}
+          <Snackbar open={!connected}>
+            <Alert severity="info">{t('system.connection.connecting')}</Alert>
+          </Snackbar>
+        </ThemeProvider>
+      </BrowserRouter>
+    </ColorContext.Provider>
   )
 }
 

@@ -1,0 +1,17 @@
+.desktop {
+  display: flex;
+  height: 100%;
+}
+
+.mainBar {
+  width: 64px;
+  padding: 10px;
+}
+.appBar {
+  width: 340px;
+  background-color: salmon;
+}
+.appContent {
+  flex: 1;
+  background-color: chocolate;
+}
