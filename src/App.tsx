@@ -5,7 +5,14 @@ import { BrowserRouter } from 'react-router-dom'
 import UserType from './Types/User'
 import socket from './Utils/Socket'
 
-import { Snackbar, Alert, Box, ThemeProvider, createTheme } from '@mui/material'
+import {
+  Snackbar,
+  Alert,
+  Box,
+  ThemeProvider,
+  createTheme,
+  Hidden,
+} from '@mui/material'
 
 import Loading from './Components/Loading'
 import MobileLayout from './Layouts/Mobile/Layout'
@@ -61,18 +68,12 @@ function App() {
             <Loading />
           ) : user ? (
             <>
-              <Box
-                component="button"
-                sx={{ display: { xl: 'none', xs: 'block' } }}
-              >
+              <Hidden mdUp>
                 <MobileLayout />
-              </Box>
-              <Box
-                component="button"
-                sx={{ display: { xl: 'none', xs: 'block' } }}
-              >
+              </Hidden>
+              <Hidden mdDown>
                 <DesktopLayout />
-              </Box>
+              </Hidden>
             </>
           ) : (
             <Login />

@@ -3,7 +3,7 @@ import { CSSProperties } from 'react'
 import styles from './styles.module.scss'
 
 export interface CardProps {
-  title?: string | JSX.Element
+  title?: string | JSX.Element | false | null
   children: JSX.Element | string
   animate?: true
   style?: CSSProperties
