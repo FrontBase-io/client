@@ -1,6 +1,7 @@
 .desktop {
   display: flex;
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
 }
 
 .mainBar {
@@ -72,6 +73,7 @@
 }
 .appContent {
   flex: 1;
+  max-width: calc(100% - 113px);
 
   .background {
     height: 30vh;
@@ -81,6 +83,6 @@
     position: absolute;
     top: 64px;
     height: calc(100% - 64px);
-    width: 100%;
+    width: calc(100% - 113px);
   }
 }

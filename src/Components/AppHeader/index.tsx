@@ -1,3 +1,4 @@
+import { AppContext } from '../../App'
 import styles from './styles.module.scss'
 
 const AppHeader: React.FC = () => {
@@ -8,7 +9,13 @@ const AppHeader: React.FC = () => {
   // Functions
 
   // UI
-  return <div className={styles.appHeader}>Test</div>
+  return (
+    <AppContext.Consumer>
+      {({ appBar }) => (
+        <div className={styles.appHeader}>{appBar?.label ?? 'FrontBase'}</div>
+      )}
+    </AppContext.Consumer>
+  )
 }
 
 export default AppHeader

@@ -33,7 +33,7 @@ const AppDetail: React.FC<{ apps: AppType[] | undefined }> = ({ apps }) => {
   return (
     <>
       <AppBar app={app} />
-      <AppContent />
+      <AppContent app={app} />
     </>
   )
 }

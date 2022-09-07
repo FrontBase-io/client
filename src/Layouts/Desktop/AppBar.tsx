@@ -10,6 +10,7 @@ import {
   Typography,
 } from '@mui/material'
 import Icon from '../../Components/Icon'
+import { Link } from 'react-router-dom'
 
 const AppBar: React.FC<{ app?: AppType }> = ({ app }) => {
   // Vars
@@ -25,11 +26,11 @@ const AppBar: React.FC<{ app?: AppType }> = ({ app }) => {
   return (
     <ColorContext.Consumer>
       {({ primary }) => (
-        <div className={styles.appBar} style={{ width: expanded ? 300 : 60 }}>
+        <div className={styles.appBar} style={{ width: expanded ? 300 : 49 }}>
           <div
             onClick={() => setExpanded(!expanded)}
             className={styles.sizeToggle}
-            style={{ left: expanded ? 360 : 120 }}
+            style={{ left: expanded ? 360 : 110 }}
           />
           <div
             className={styles.appbarHeader}
@@ -38,25 +39,21 @@ const AppBar: React.FC<{ app?: AppType }> = ({ app }) => {
           >
             <Icon
               icon={app?.icon}
-              style={{ marginRight: 20, marginLeft: expanded ? 0 : 100 }}
+              style={{ marginRight: 20, marginLeft: expanded ? 0 : 110 }}
             />
-            <Typography
-              variant="h5"
-              style={{
-                opacity: expanded ? 1 : 0,
-                transition: 'all 0.3s ease-in-out',
-              }}
-            >
-              {app?.name}
-            </Typography>
+            <Typography variant="h5">{app?.name}</Typography>
           </div>
           <List>
-            <ListItem button>
-              <ListItemIcon>
-                <Icon icon="compass" />
-              </ListItemIcon>
-              <ListItemText primary="Page" />
-            </ListItem>
+            {(app?.pages ?? []).map((page) => (
+              <Link to={`/${app?.key}/${page.key}`} key={page.key}>
+                <ListItem button>
+                  <ListItemIcon>
+                    <Icon icon={page.icon} />
+                  </ListItemIcon>
+                  <ListItemText primary={page.label} />
+                </ListItem>
+              </Link>
+            ))}
           </List>
         </div>
       )}

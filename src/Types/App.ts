@@ -12,4 +12,5 @@ export interface AppType extends ObjectType {
 export interface AppPageType {
   label: string
   key: string
+  icon: string
 }

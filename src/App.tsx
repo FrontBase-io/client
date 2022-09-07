@@ -19,8 +19,12 @@ import Login from './Pages/Login'
 
 import ServerSetup from './Pages/ServerSetup'
 import DesktopLayout from './Layouts/Desktop/Layout'
-import { AppType } from './Types/App'
+import { AppPageType, AppType } from './Types/App'
 import { getHex } from './Utils/Color'
+
+interface AppbarType {
+  label: string
+}
 
 // Global context
 export const ColorContext = createContext({
@@ -30,9 +34,17 @@ export const ColorContext = createContext({
 export const AppContext = createContext<{
   currentApp?: AppType | null | undefined
   setCurrentApp?: ((app: AppType | null) => void) | null
+  currentPage?: AppPageType | null | undefined
+  setCurrentPage?: ((page: AppPageType | null) => void) | null
+  appBar?: AppbarType | null | undefined
+  setAppBar?: ((page: AppbarType | null) => void) | null
 }>({
   currentApp: null,
   setCurrentApp: null,
+  currentPage: null,
+  setCurrentPage: null,
+  appBar: null,
+  setAppBar: null,
 })
 
 function App() {
@@ -43,7 +55,12 @@ function App() {
   const { t } = useTranslation()
   const [primary, setPrimaryColor] = useState('#4874a8')
   const [secondary, setSecondaryColor] = useState('#00bcd4')
+  // Context vars
   const [currentApp, setCurrentApp] = useState<AppType | null>()
+  const [currentPage, setCurrentPage] = useState<
+    AppPageType | null | undefined
+  >()
+  const [appBar, setAppBar] = useState<AppbarType | null>()
   const [colorMode, setColorMode] = useState<'dark' | 'light'>('dark')
 
   const handleSetCurrentApp = (app: AppType | null) => {
@@ -86,10 +103,18 @@ function App() {
   }, [])
 
   // UI
+
   return (
     <ColorContext.Provider value={{ primary, secondary }}>
       <AppContext.Provider
-        value={{ currentApp, setCurrentApp: handleSetCurrentApp }}
+        value={{
+          currentApp,
+          setCurrentApp: handleSetCurrentApp,
+          currentPage,
+          setCurrentPage,
+          appBar,
+          setAppBar,
+        }}
       >
         <BrowserRouter>
           <ThemeProvider
@@ -111,9 +136,7 @@ function App() {
                     <MobileLayout />
                   </Hidden>
                   <Hidden mdDown>
-                    <>
-                      <DesktopLayout />
-                    </>
+                    <DesktopLayout />
                   </Hidden>
                 </>
               ) : (

@@ -42,3 +42,11 @@ html {
     background-color: #222222;
   }
 }
+// MUI overrides
+.MuiListItemIcon-root {
+  min-width: 32px !important;
+}
+a {
+  all: unset;
+  cursor: pointer;
+}
