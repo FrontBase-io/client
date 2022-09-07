@@ -5,13 +5,35 @@
 
 .mainBar {
   width: 64px;
-  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  transition: var(--transition);
+
+  .primary-logo {
+    padding: 10px 10px 0 10px;
+  }
+  .app {
+    padding: 10px;
+    &.active {
+      background-color: white;
+    }
+  }
 }
 .appBar {
   width: 340px;
-  background-color: salmon;
+  background-color: white;
 }
 .appContent {
   flex: 1;
-  background-color: chocolate;
+
+  .background {
+    height: 30vh;
+  }
+  .content {
+    position: absolute;
+    top: 64px;
+    height: calc(100% - 64px);
+    width: 100%;
+  }
 }
