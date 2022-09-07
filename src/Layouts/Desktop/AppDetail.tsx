@@ -32,7 +32,7 @@ const AppDetail: React.FC<{ apps: AppType[] | undefined }> = ({ apps }) => {
   // UI
   return (
     <>
-      <AppBar />
+      <AppBar app={app} />
       <AppContent />
     </>
   )

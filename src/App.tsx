@@ -44,13 +44,25 @@ function App() {
   const [primary, setPrimaryColor] = useState('#4874a8')
   const [secondary, setSecondaryColor] = useState('#00bcd4')
   const [currentApp, setCurrentApp] = useState<AppType | null>()
+  const [colorMode, setColorMode] = useState<'dark' | 'light'>('dark')
 
   const handleSetCurrentApp = (app: AppType | null) => {
+    let newColor = '#4874a8'
     if (app) {
-      setPrimaryColor(getHex(app.color))
-    } else {
-      setPrimaryColor('#4874a8')
+      newColor = getHex(app.color)
     }
+    setPrimaryColor(newColor)
+
+    // Set theme color tag
+    var metaThemeColor = document.querySelector('meta[name=theme-color]')!
+    metaThemeColor.setAttribute(
+      'content',
+      window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? '#222222'
+        : newColor
+    )
+
     setCurrentApp(app)
   }
 
@@ -83,6 +95,7 @@ function App() {
           <ThemeProvider
             theme={createTheme({
               palette: {
+                mode: colorMode,
                 primary: {
                   main: primary,
                 },

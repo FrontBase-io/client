@@ -17,18 +17,65 @@
     padding: 10px;
     &.active {
       background-color: white;
+      @media (prefers-color-scheme: dark) {
+        background-color: #151515;
+        color: white;
+      }
     }
   }
 }
 .appBar {
-  width: 340px;
   background-color: white;
+  transition: var(--transition);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.07),
+    0 4px 8px rgba(0, 0, 0, 0.07), 0 8px 16px rgba(0, 0, 0, 0.07),
+    0 16px 32px rgba(0, 0, 0, 0.07), 0 32px 64px rgba(0, 0, 0, 0.07);
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #151515;
+    color: white;
+  }
+  overflow: hidden;
+
+  .sizeToggle {
+    height: 100vh;
+
+    width: 5px;
+    top: 0;
+    position: absolute;
+    transition: var(--transition);
+    cursor: col-resize;
+    overflow: hidden;
+
+    background-color: #aaa;
+    &:hover {
+      background-color: #666;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #252525;
+      &:hover {
+        background-color: #333;
+      }
+    }
+  }
+
+  .appbarHeader {
+    height: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    cursor: pointer;
+    flex-wrap: nowrap;
+  }
 }
 .appContent {
   flex: 1;
 
   .background {
     height: 30vh;
+    transition: var(--transition);
   }
   .content {
     position: absolute;

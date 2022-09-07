@@ -3,7 +3,7 @@ import { useData } from '../../Utils/Data'
 
 import { useEffect, useState } from 'react'
 import { AppType } from '../../Types/App'
-import { Route, Routes, useParams } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import MainBar from './MainBar'
 import Desktop from '../../Pages/Desktop'

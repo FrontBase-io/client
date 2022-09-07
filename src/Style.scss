@@ -35,3 +35,10 @@ html {
   align-items: center;
   height: 100%;
 }
+
+@media (prefers-color-scheme: dark) {
+  body,
+  html {
+    background-color: #222222;
+  }
+}
