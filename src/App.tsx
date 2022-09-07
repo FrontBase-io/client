@@ -72,13 +72,7 @@ function App() {
 
     // Set theme color tag
     var metaThemeColor = document.querySelector('meta[name=theme-color]')!
-    metaThemeColor.setAttribute(
-      'content',
-      window.matchMedia &&
-        window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? '#222222'
-        : newColor
-    )
+    metaThemeColor.setAttribute('content', newColor)
 
     setCurrentApp(app)
   }
