@@ -15,9 +15,9 @@ const MainBar: React.FC<{ apps?: AppType[] }> = ({ apps }) => {
   // UI
   return (
     <ColorContext.Consumer>
-      {({ primary, secondary }) => (
+      {({ primary }) => (
         <AppContext.Consumer>
-          {({ currentApp, setCurrentApp }) => (
+          {({ currentApp }) => (
             <div
               className={styles.mainBar}
               style={{ backgroundColor: primary }}

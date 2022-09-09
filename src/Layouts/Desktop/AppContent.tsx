@@ -3,7 +3,7 @@ import styles from './styles.module.scss'
 import AppHeader from '../../Components/AppHeader'
 import { Route, Routes } from 'react-router-dom'
 import { AppType } from '../../Types/App'
-import AppCanvas from '../../Components/AppCanvas'
+import AppPagerCanvas from '../../Components/AppPageCanvas'
 
 const AppContent: React.FC<{ app?: AppType }> = ({ app }) => {
   // Vars
@@ -24,7 +24,7 @@ const AppContent: React.FC<{ app?: AppType }> = ({ app }) => {
           <AppHeader />
           <div className={styles.content}>
             <Routes>
-              <Route path={`:pageId`} element={<AppCanvas app={app} />} />
+              <Route path={`:pageId`} element={<AppPagerCanvas app={app} />} />
             </Routes>
           </div>
         </div>

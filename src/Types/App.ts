@@ -13,4 +13,5 @@ export interface AppPageType {
   label: string
   key: string
   icon: string
+  content: { type: 'app' | 'layout' }
 }

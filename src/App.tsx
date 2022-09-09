@@ -61,7 +61,9 @@ function App() {
     AppPageType | null | undefined
   >()
   const [appBar, setAppBar] = useState<AppbarType | null>()
-  const [colorMode, setColorMode] = useState<'dark' | 'light'>('dark')
+  const [colorMode, setColorMode] = useState<'dark' | 'light'>(
+    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  )
 
   const handleSetCurrentApp = (app: AppType | null) => {
     let newColor = '#4874a8'
@@ -94,6 +96,13 @@ function App() {
       )
     })
     socket.on('disconnect', () => setConnected(false))
+
+    // Listen to dark mode changes
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', (e) =>
+        setColorMode(e.matches ? 'dark' : 'light')
+      )
   }, [])
 
   // UI

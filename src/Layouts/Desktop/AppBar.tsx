@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 import { AppType } from '../../Types/App'
-import { ColorContext } from '../../App'
+import { AppContext, ColorContext } from '../../App'
 import {
   List,
-  ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
+  Tooltip,
   Typography,
 } from '@mui/material'
 import Icon from '../../Components/Icon'
@@ -14,7 +15,7 @@ import { Link } from 'react-router-dom'
 
 const AppBar: React.FC<{ app?: AppType }> = ({ app }) => {
   // Vars
-  const [expanded, setExpanded] = useState<Boolean>(false)
+  const [expanded, setExpanded] = useState<boolean>(false)
 
   // Lifecycle
   useEffect(() => {
@@ -26,36 +27,69 @@ const AppBar: React.FC<{ app?: AppType }> = ({ app }) => {
   return (
     <ColorContext.Consumer>
       {({ primary }) => (
-        <div className={styles.appBar} style={{ width: expanded ? 300 : 49 }}>
-          <div
-            onClick={() => setExpanded(!expanded)}
-            className={styles.sizeToggle}
-            style={{ left: expanded ? 360 : 110 }}
-          />
-          <div
-            className={styles.appbarHeader}
-            onClick={() => setExpanded(!expanded)}
-            style={{ color: primary, borderBottom: `1px solid ${primary}` }}
-          >
-            <Icon
-              icon={app?.icon}
-              style={{ marginRight: 20, marginLeft: expanded ? 0 : 110 }}
-            />
-            <Typography variant="h5">{app?.name}</Typography>
-          </div>
-          <List>
-            {(app?.pages ?? []).map((page) => (
-              <Link to={`/${app?.key}/${page.key}`} key={page.key}>
-                <ListItem button>
-                  <ListItemIcon>
-                    <Icon icon={page.icon} />
-                  </ListItemIcon>
-                  <ListItemText primary={page.label} />
-                </ListItem>
+        <AppContext.Consumer>
+          {({ currentPage }) => (
+            <div
+              className={styles.appBar}
+              style={{ width: expanded ? 300 : 49 }}
+            >
+              <div
+                onClick={() => setExpanded(!expanded)}
+                className={styles.sizeToggle}
+                style={{ left: expanded ? 360 : 110 }}
+              />
+              <Link to={`/${app?.key}`}>
+                <div
+                  className={styles.appbarHeader}
+                  style={{
+                    color: primary,
+                    borderBottom: `1px solid ${primary}`,
+                  }}
+                >
+                  <Icon
+                    icon={app?.icon}
+                    style={{ marginRight: 20, marginLeft: expanded ? 0 : 110 }}
+                  />
+                  <Typography variant="h5">{app?.name}</Typography>
+                </div>
               </Link>
-            ))}
-          </List>
-        </div>
+              <List>
+                {(app?.pages ?? []).map((page) => (
+                  <Tooltip
+                    title={page.label}
+                    placement="right"
+                    arrow
+                    key={page.key}
+                    disableHoverListener={expanded}
+                  >
+                    <Link to={`/${app?.key}/${page.key}`}>
+                      <ListItemButton
+                        selected={page.key === currentPage?.key}
+                        onClick={() =>
+                          page.key === currentPage?.key &&
+                          setExpanded(!expanded)
+                        }
+                      >
+                        <ListItemIcon
+                          sx={
+                            page.key === currentPage?.key
+                              ? {
+                                  color: 'primary.main',
+                                }
+                              : {}
+                          }
+                        >
+                          <Icon icon={page.icon} />
+                        </ListItemIcon>
+                        <ListItemText primary={page.label} />
+                      </ListItemButton>{' '}
+                    </Link>
+                  </Tooltip>
+                ))}
+              </List>
+            </div>
+          )}
+        </AppContext.Consumer>
       )}
     </ColorContext.Consumer>
   )

@@ -80,9 +80,8 @@
     transition: var(--transition);
   }
   .content {
-    position: absolute;
-    top: 64px;
     height: calc(100% - 64px);
-    width: calc(100% - 113px);
+    width: 100%;
+    margin-top: calc(-30vh + 64px);
   }
 }
