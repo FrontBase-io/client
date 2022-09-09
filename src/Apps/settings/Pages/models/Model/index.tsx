@@ -1,5 +1,6 @@
-import { ModelType } from '../../../../../Types/Model'
+import { useData } from '../../../../../Utils/Data'
 import { PageProps } from '../../../../Types'
+import { useEffect } from 'react'
 
 const ModelsModel: React.FC<PageProps> = ({ UI: { Card }, model }) => {
   // Vars

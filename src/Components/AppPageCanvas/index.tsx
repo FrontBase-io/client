@@ -5,6 +5,7 @@ import { findLast } from 'lodash'
 import { AppContext } from '../../App'
 import Card from '../Card'
 import RenderAppPage from './RenderAppPage'
+import Loading from '../Loading'
 
 const AppPagerCanvas: React.FC<{ app?: AppType }> = ({ app }) => {
   // Vars
@@ -35,9 +36,7 @@ const AppPagerCanvas: React.FC<{ app?: AppType }> = ({ app }) => {
   return (
     <>
       {!!!page?.content?.type ? (
-        <Card animate title={page?.label}>
-          No content found
-        </Card>
+        <Loading />
       ) : page.content.type === 'app' ? (
         <RenderAppPage app={app!} page={page} />
       ) : (

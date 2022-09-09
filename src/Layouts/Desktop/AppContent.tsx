@@ -24,7 +24,10 @@ const AppContent: React.FC<{ app?: AppType }> = ({ app }) => {
           <AppHeader />
           <div className={styles.content}>
             <Routes>
-              <Route path={`:pageId`} element={<AppPagerCanvas app={app} />} />
+              <Route
+                path={`:pageId/*`}
+                element={<AppPagerCanvas app={app} />}
+              />
             </Routes>
           </div>
         </div>

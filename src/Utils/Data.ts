@@ -1,7 +1,9 @@
+import { ModelType } from '../Types/Model'
 import { ObjectType } from '../Types/Object'
 import Server from './Socket'
 
 export const useData = () => {
+  // Get objects
   const getObjects: (
     args: {
       model: string
@@ -22,7 +24,23 @@ export const useData = () => {
     })
   }
 
+  // Get models
+  const getModels: (
+    args: { filter: {} },
+    then: (models: ModelType[]) => void
+  ) => void = (args, then) => {
+    Server.emit('getModels', args.filter ?? {}, (queryId: string) => {
+      Server.on(`receive-${queryId}`, ({ success, data }) => {
+        if (success) {
+          then(data)
+        } else {
+          alert('Todo: handle error')
+        }
+      })
+    })
+  }
   return {
     getObjects,
+    getModels,
   }
 }
