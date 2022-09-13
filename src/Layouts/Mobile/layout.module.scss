@@ -1,0 +1,23 @@
+.mobile-layout {
+  height: 100vh;
+}
+
+.backdrop {
+  height: 30vh;
+}
+
+.content {
+  margin-top: calc(-30vh + 64px);
+  height: calc(100% - 64px);
+}
+
+.menu {
+  width: 40vw;
+  padding: 0;
+  .menu-header {
+    padding: var(--gap);
+    img {
+      height: 64px;
+    }
+  }
+}

@@ -4,6 +4,8 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material'
 import Card from '../Card'
 import { ListItemType } from '../../Types/UI'
@@ -32,6 +34,8 @@ const ListDetailLayout: React.FC<ListDetailLayoutProps> = ({
   // Vars
   const [item, setItem] = useState<ListItemType>()
   const Component = component
+  const theme = useTheme()
+  const isLargeScreen = useMediaQuery(theme.breakpoints.up('md'))
 
   const params = useParams()
 
@@ -50,29 +54,31 @@ const ListDetailLayout: React.FC<ListDetailLayoutProps> = ({
   // UI
   return (
     <Grid container>
-      <Grid item xs={2}>
-        <Card title={title} animate withoutPadding>
-          <List disablePadding>
-            {list ? (
-              list.map((listitem) => (
-                <Link to={`${baseUrl}/${listitem.key}`} key={listitem.key}>
-                  <ListItemButton>
-                    {listitem.icon && (
-                      <ListItemIcon>
-                        <Icon icon={listitem.icon} />
-                      </ListItemIcon>
-                    )}
-                    <ListItemText primary={listitem.label} />
-                  </ListItemButton>
-                </Link>
-              ))
-            ) : (
-              <Loading />
-            )}
-          </List>
-        </Card>
-      </Grid>
-      <Grid item xs={10}>
+      {(!item || isLargeScreen) && (
+        <Grid item xs={12} md={2}>
+          <Card title={title} animate withoutPadding>
+            <List disablePadding>
+              {list ? (
+                list.map((listitem) => (
+                  <Link to={`${baseUrl}/${listitem.key}`} key={listitem.key}>
+                    <ListItemButton>
+                      {listitem.icon && (
+                        <ListItemIcon>
+                          <Icon icon={listitem.icon} />
+                        </ListItemIcon>
+                      )}
+                      <ListItemText primary={listitem.label} />
+                    </ListItemButton>
+                  </Link>
+                ))
+              ) : (
+                <Loading />
+              )}
+            </List>
+          </Card>
+        </Grid>
+      )}
+      <Grid item xs={12} md={10}>
         {item && <Component item={item} UI={UI} helpers={Helpers} />}
       </Grid>
     </Grid>
