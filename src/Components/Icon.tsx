@@ -1,10 +1,10 @@
 import { CSSProperties } from 'react'
-
-const Icon: React.FC<{
+export interface IconProps {
   icon?: string
   size?: number
   style?: CSSProperties
-}> = ({ icon, size, style }) =>
+}
+const Icon: React.FC<IconProps> = ({ icon, size, style }) =>
   icon ? (
     <span
       style={{ ...(style ?? {}), fontSize: size ?? 18 }}

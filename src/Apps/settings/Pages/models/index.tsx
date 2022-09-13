@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useData } from '../../../../Utils/Data'
 import { PageProps } from '../../../Types'
 import { ListItemType } from '../../../../Types/UI'
+import ModelsModel from './Model'
 
 const Models: React.FC<PageProps> = ({ UI: { ListDetailLayout } }) => {
   // Vars
@@ -30,6 +31,7 @@ const Models: React.FC<PageProps> = ({ UI: { ListDetailLayout } }) => {
       title="Models"
       list={modelList}
       baseUrl="/settings/models"
+      component={ModelsModel}
     />
   )
 }

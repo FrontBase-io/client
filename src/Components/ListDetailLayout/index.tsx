@@ -10,31 +10,33 @@ import { ListItemType } from '../../Types/UI'
 import Loading from '../Loading'
 import Icon from '../Icon'
 import { Link, useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { findLast } from 'lodash'
+import UI from '../AppPageCanvas/UI'
+import { PageProps } from '../../Apps/Types'
+import Helpers from '../AppPageCanvas/Helpers'
 
 export interface ListDetailLayoutProps {
   title: string
   list: ListItemType[] | undefined
   baseUrl: string
+  component: FC<PageProps>
 }
 
 const ListDetailLayout: React.FC<ListDetailLayoutProps> = ({
   title,
   list,
   baseUrl,
+  component,
 }) => {
   // Vars
-  const [detailPageId, setDetailPageId] = useState(
-    window.location.pathname.split(`${baseUrl}/`)[1]
-  )
-  const [item, setItem] = useState()
+  const [item, setItem] = useState<ListItemType>()
+  const Component = component
 
   const params = useParams()
 
   // Lifecycle
   useEffect(() => {
-    setDetailPageId(window.location.pathname.split(`${baseUrl}/`)[1])
     setItem(
       findLast(
         list,
@@ -71,11 +73,7 @@ const ListDetailLayout: React.FC<ListDetailLayoutProps> = ({
         </Card>
       </Grid>
       <Grid item xs={10}>
-        {item && (
-          <Card title={title} animate>
-            {JSON.stringify(item)}
-          </Card>
-        )}
+        {item && <Component item={item} UI={UI} helpers={Helpers} />}
       </Grid>
     </Grid>
   )

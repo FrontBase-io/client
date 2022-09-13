@@ -3,13 +3,15 @@ import { AppType } from '../../Types/App'
 import { FC, lazy, useEffect, useState } from 'react'
 import UI, { UIType } from './UI'
 import Loading from '../Loading'
+import Helpers, { HelpersType } from './Helpers'
 
 const RenderAppPage: React.FC<{ app: AppType; page: AppPageType }> = ({
   app,
   page,
 }) => {
   // Vars
-  const [AppPageComponent, setAppPageComponent] = useState<FC<{ UI: UIType }>>()
+  const [AppPageComponent, setAppPageComponent] =
+    useState<FC<{ UI: UIType; helpers: HelpersType }>>()
 
   // Lifecycle
   useEffect(() => {
@@ -17,7 +19,8 @@ const RenderAppPage: React.FC<{ app: AppType; page: AppPageType }> = ({
       lazy(() => import(`../../Apps/${app.key}/Pages/${page.key}/index`))
     )
     // import('../../Apps/settings/Pages/models/index').then((component) => {
-    //   setAppPageComponent(component.default)
+    // import Helpers from './Helpers';
+    // setAppPageComponent(component.default)
     // })
   }, [page, app])
 
@@ -25,7 +28,15 @@ const RenderAppPage: React.FC<{ app: AppType; page: AppPageType }> = ({
   ///Apps/{app.key}/Pages/{page.key}/index.tsx
 
   // UI
-  return <>{AppPageComponent ? <AppPageComponent UI={UI} /> : <Loading />}</>
+  return (
+    <>
+      {AppPageComponent ? (
+        <AppPageComponent UI={UI} helpers={Helpers} />
+      ) : (
+        <Loading />
+      )}
+    </>
+  )
 }
 
 export default RenderAppPage

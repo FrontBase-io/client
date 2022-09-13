@@ -39,8 +39,16 @@ export const useData = () => {
       })
     })
   }
+
+  // Save model
+  const updateModel = (key: string, changes: { [key: string]: any }) => {
+    Server.emit('update-model', key, changes, () => {
+      // Todo: handle response
+    })
+  }
   return {
     getObjects,
     getModels,
+    updateModel,
   }
 }

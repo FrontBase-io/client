@@ -1,8 +1,9 @@
-import { useData } from '../../../../../Utils/Data'
 import { PageProps } from '../../../../Types'
-import { useEffect } from 'react'
+import FourOhFour from '../../../../../Components/FourOhFour'
+import ModelsModelModel from './Model/index'
+import ModelsModelFields from './Fields/index'
 
-const ModelsModel: React.FC<PageProps> = ({ UI: { Card }, model }) => {
+const ModelsModel: React.FC<PageProps> = ({ UI: { Tabs }, item }) => {
   // Vars
 
   // Lifecycle
@@ -11,9 +12,26 @@ const ModelsModel: React.FC<PageProps> = ({ UI: { Card }, model }) => {
 
   // UI
   return (
-    <Card animate title="Model">
-      {JSON.stringify(model)}
-    </Card>
+    <Tabs
+      white
+      tabs={[
+        {
+          label: 'Model',
+          key: 'model',
+          component: ModelsModelModel,
+          props: { model: item },
+        },
+        {
+          label: 'Fields',
+          key: 'fields',
+          component: ModelsModelFields,
+          props: { model: item },
+        },
+        { label: 'Overviews', key: 'overviews', component: FourOhFour },
+        { label: 'Layouts', key: 'layouts', component: FourOhFour },
+        { label: 'Permissions', key: 'permissions', component: FourOhFour },
+      ]}
+    />
   )
 }
 

@@ -1,6 +1,7 @@
 import { Tabs as MUITabs, Tab } from '@mui/material'
 import { FC, useState } from 'react'
 import { PageProps } from '../../Apps/Types'
+import Helpers from '../AppPageCanvas/Helpers'
 import UI from '../AppPageCanvas/UI'
 
 export interface TabProps {
@@ -9,7 +10,7 @@ export interface TabProps {
     label: string
     key: string
     component: FC<PageProps>
-    componentProps?: {}
+    props?: {}
   }[]
 }
 
@@ -46,7 +47,12 @@ const Tabs: React.FC<TabProps> = ({ white, tabs }) => {
         const Component = tab.component
         return (
           tab.key === value && (
-            <Component key={tab.key} UI={UI} {...(tab.componentProps ?? {})} />
+            <Component
+              key={tab.key}
+              UI={UI}
+              helpers={Helpers}
+              {...(tab.props ?? {})}
+            />
           )
         )
       })}
