@@ -11,7 +11,7 @@ export default class App {
             label: model.label_plural,
             key: model.key_plural,
             icon: model.icon,
-            content: { type: 'code', pageKey: 'overview' },
+            content: { type: 'code', pageKey: 'model' },
             props: { model },
           }))
         )
