@@ -19,7 +19,7 @@ const AppBar: React.FC<{ app?: AppType }> = ({ app }) => {
 
   // Lifecycle
   useEffect(() => {
-    setExpanded(true)
+    setExpanded(false)
   }, [app])
   // Functions
 
@@ -31,12 +31,12 @@ const AppBar: React.FC<{ app?: AppType }> = ({ app }) => {
           {({ currentPage }) => (
             <div
               className={styles.appBar}
-              style={{ width: expanded ? 300 : 49 }}
+              style={{ width: expanded ? 250 : 49 }}
             >
               <div
                 onClick={() => setExpanded(!expanded)}
                 className={styles.sizeToggle}
-                style={{ left: expanded ? 360 : 110 }}
+                style={{ left: expanded ? 310 : 110 }}
               />
               <Link to={`/${app?.key}`}>
                 <div

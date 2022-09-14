@@ -6,4 +6,10 @@ export interface ModelType extends ObjectType {
   key: string
   key_plural: string
   icon: string
+  fields: { [key: string]: ModelFieldType }
+}
+
+export interface ModelFieldType {
+  name: string
+  type: 'text' | 'list' | 'number'
 }

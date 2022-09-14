@@ -11,6 +11,13 @@ import {
   ThemeProvider,
   createTheme,
   Hidden,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button,
+  Grid,
 } from '@mui/material'
 
 import Loading from './Components/Loading'
@@ -21,9 +28,26 @@ import ServerSetup from './Pages/ServerSetup'
 import DesktopLayout from './Layouts/Desktop/Layout'
 import { AppPageType, AppType } from './Types/App'
 import { getHex } from './Utils/Color'
+import TextInput from './Components/Inputs/Text'
 
 interface AppbarType {
   label: string
+}
+
+interface DialogInputType {
+  label: string
+  key: string
+}
+interface DialogActionType {
+  label: string
+  onClick?: (form: { [key: string]: any }) => void
+}
+interface DialogType {
+  show: boolean
+  title?: string
+  text?: string
+  form?: DialogInputType[]
+  actions?: DialogActionType[]
 }
 
 // Global context
@@ -46,6 +70,13 @@ export const AppContext = createContext<{
   appBar: null,
   setAppBar: null,
 })
+export const DialogContext = createContext<{
+  dialog: DialogType | null
+  setDialog: (dialog: DialogType) => void
+}>({
+  dialog: null,
+  setDialog: () => {},
+})
 
 function App() {
   // Vars
@@ -64,6 +95,11 @@ function App() {
   const [colorMode, setColorMode] = useState<'dark' | 'light'>(
     window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   )
+  // Dialog
+  const [dialog, setDialog] = useState<DialogType>({ show: false })
+  const [dialogFormContent, setDialogFormContent] = useState<{
+    [key: string]: any
+  }>({})
 
   const handleSetCurrentApp = (app: AppType | null) => {
     let newColor = '#4874a8'
@@ -119,40 +155,93 @@ function App() {
           setAppBar,
         }}
       >
-        <BrowserRouter>
-          <ThemeProvider
-            theme={createTheme({
-              palette: {
-                mode: colorMode,
-                primary: {
-                  main: primary,
+        <DialogContext.Provider value={{ dialog, setDialog }}>
+          <BrowserRouter>
+            <ThemeProvider
+              theme={createTheme({
+                palette: {
+                  mode: colorMode,
+                  primary: {
+                    main: primary,
+                  },
                 },
-              },
-            })}
-          >
-            {serverIsReady ? (
-              user === undefined ? (
-                <Loading />
-              ) : user ? (
-                <>
-                  <Hidden mdUp>
-                    <MobileLayout />
-                  </Hidden>
-                  <Hidden mdDown>
-                    <DesktopLayout />
-                  </Hidden>
-                </>
+              })}
+            >
+              {serverIsReady ? (
+                user === undefined ? (
+                  <Loading />
+                ) : user ? (
+                  <>
+                    <Hidden mdUp>
+                      <MobileLayout />
+                    </Hidden>
+                    <Hidden mdDown>
+                      <DesktopLayout />
+                    </Hidden>
+                  </>
+                ) : (
+                  <Login />
+                )
               ) : (
-                <Login />
-              )
-            ) : (
-              <ServerSetup />
+                <ServerSetup />
+              )}
+              <Snackbar open={!connected}>
+                <Alert severity="info">
+                  {t('system.connection.connecting')}
+                </Alert>
+              </Snackbar>
+            </ThemeProvider>
+          </BrowserRouter>
+          <Dialog
+            open={dialog.show}
+            onClose={() => setDialog({ ...dialog, show: false })}
+          >
+            {dialog.title && <DialogTitle>{dialog.title}</DialogTitle>}
+            <DialogContent>
+              <>
+                {dialog.text && (
+                  <DialogContentText>{dialog.text}</DialogContentText>
+                )}
+                {dialog.form && (
+                  <Grid container spacing={3}>
+                    {dialog.form.map((formItem) => (
+                      <Grid item xs={12} key={formItem.key}>
+                        <TextInput
+                          label={formItem.label}
+                          value={dialogFormContent[formItem.key] ?? ''}
+                          onChange={(newValue) => {
+                            setDialogFormContent({
+                              ...dialogFormContent,
+                              [formItem.key]: newValue,
+                            })
+                          }}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                )}
+              </>
+            </DialogContent>
+            {dialog.actions && (
+              <DialogActions>
+                {dialog.actions.map((dialogAction, index) => (
+                  <Button
+                    key={`dialog-action-${index}`}
+                    onClick={() => {
+                      dialogAction.onClick &&
+                        dialogAction.onClick(dialogFormContent)
+                      setDialogFormContent({})
+                      setDialog({ ...dialog, show: false })
+                    }}
+                    autoFocus
+                  >
+                    {dialogAction.label}
+                  </Button>
+                ))}
+              </DialogActions>
             )}
-            <Snackbar open={!connected}>
-              <Alert severity="info">{t('system.connection.connecting')}</Alert>
-            </Snackbar>
-          </ThemeProvider>
-        </BrowserRouter>
+          </Dialog>
+        </DialogContext.Provider>
       </AppContext.Provider>
     </ColorContext.Provider>
   )

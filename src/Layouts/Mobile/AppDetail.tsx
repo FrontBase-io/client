@@ -1,7 +1,7 @@
 import { BottomNavigation, BottomNavigationAction } from '@mui/material'
 import { findLast } from 'lodash'
 import { useState, useContext, useEffect } from 'react'
-import { Link, Route, Routes, useNavigate, useParams } from 'react-router-dom'
+import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
 import { AppContext } from '../../App'
 import AppPagerCanvas from '../../Components/AppPageCanvas'
 import Icon from '../../Components/Icon'
@@ -16,7 +16,6 @@ const AppDetail: React.FC<{ apps: AppType[] | undefined }> = ({ apps }) => {
   // Hooks
   let { appId } = useParams()
   const { setCurrentApp } = useContext(AppContext)
-  const [value, setValue] = useState(app?.pages[0].key)
   const navigate = useNavigate()
 
   // Lifecycle

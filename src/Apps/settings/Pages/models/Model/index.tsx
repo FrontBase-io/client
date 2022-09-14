@@ -14,6 +14,7 @@ const ModelsModel: React.FC<PageProps> = ({ UI: { Tabs }, item }) => {
   return (
     <Tabs
       white
+      baseUrl={`/settings/models/${item.key_plural}`}
       tabs={[
         {
           label: 'Model',

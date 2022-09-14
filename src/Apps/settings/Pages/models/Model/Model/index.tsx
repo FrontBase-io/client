@@ -1,5 +1,6 @@
 import { Fab, Grid } from '@mui/material'
 import { useEffect } from 'react'
+import { ModelType } from '../../../../../../Types/Model'
 import { PageProps } from '../../../../../Types'
 
 const ModelsModelModel: React.FC<PageProps> = ({
@@ -8,16 +9,18 @@ const ModelsModelModel: React.FC<PageProps> = ({
     Icon,
     Inputs: { TextInput },
   },
-  helpers: { useEditableModel },
+  helpers: { useEditable },
   model,
 }) => {
   // Vars
-  const { editable, set, changed, save, update } = useEditableModel(model)
+  const { editable, set, changed, updateModel, update } =
+    useEditable<ModelType>(model)
 
   // Lifecycle
   useEffect(() => {
     update(model)
   }, [model])
+
   // Functions
 
   // UI
@@ -25,7 +28,7 @@ const ModelsModelModel: React.FC<PageProps> = ({
     <>
       {changed && (
         <Fab
-          onClick={save}
+          onClick={updateModel}
           color="primary"
           style={{ position: 'fixed', right: 15, bottom: 15 }}
           title="Save changes"

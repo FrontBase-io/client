@@ -3,8 +3,17 @@ import { useState } from 'react'
 import { ModelType } from '../Types/Model'
 import { useData } from '../Utils/Data'
 
-const useEditableModel = (model: ModelType) => {
-  const [editable, setEditable] = useState<ModelType>(model)
+export type useEditableType = <T>(original: T) => {
+  editable: T
+  changed: boolean
+  updatedFields: string[]
+  updateModel: () => void
+  set: (field: string, value: any) => void
+  update: (newOriginal: T) => void
+}
+
+const useEditable: useEditableType = (original) => {
+  const [editable, setEditable] = useState(original)
   const [changed, setChanged] = useState<boolean>(false)
   const [updatedFields, setUpdatedFields] = useState<string[]>([])
 
@@ -13,22 +22,23 @@ const useEditableModel = (model: ModelType) => {
   return {
     editable,
     changed,
+    updatedFields,
     set: (field: string, value: any) => {
       setChanged(true)
       setUpdatedFields(uniq([...updatedFields, field]))
       setEditable({ ...editable, [field]: value })
     },
-    save: () => {
+    updateModel: () => {
       const changedFields: { [key: string]: any } = {}
       //@ts-ignore
       updatedFields.map((f: string) => (changedFields[f] = editable[f]))
-      updateModel(editable.key, changedFields)
+      updateModel((editable as ModelType).key, changedFields)
       setChanged(false)
     },
-    update: (model: ModelType) => {
+    update: (newOriginal) => {
       setChanged(false)
-      setEditable(model)
+      setEditable(newOriginal)
     },
   }
 }
-export default useEditableModel
+export default useEditable

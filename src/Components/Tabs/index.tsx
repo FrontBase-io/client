@@ -1,11 +1,16 @@
 import { Tabs as MUITabs, Tab } from '@mui/material'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { PageProps } from '../../Apps/Types'
 import Helpers from '../AppPageCanvas/Helpers'
 import UI from '../AppPageCanvas/UI'
+import { useNavigate, useParams } from 'react-router-dom'
 
 export interface TabProps {
+  // Color the tabs white for use on a colored background
   white?: true
+  // If baseURL is provided the component should also provide routing
+  baseUrl?: string
+  // Content of the tabs
   tabs: {
     label: string
     key: string
@@ -14,11 +19,19 @@ export interface TabProps {
   }[]
 }
 
-const Tabs: React.FC<TabProps> = ({ white, tabs }) => {
+const Tabs: React.FC<TabProps> = ({ white, tabs, baseUrl }) => {
   // Vars
   const [value, setValue] = useState(tabs[0].key)
-
+  const navigate = useNavigate()
+  const params = useParams()
   // Lifecycle
+  useEffect(() => {
+    let itemKey = window.location.pathname.split(`${baseUrl}/`)[1]
+    if (itemKey?.match('/')) itemKey = itemKey.split('/')[0]
+
+    if (itemKey) setValue(itemKey)
+    return () => setValue(tabs[0].key)
+  }, [params])
 
   // Functions
 
@@ -28,9 +41,13 @@ const Tabs: React.FC<TabProps> = ({ white, tabs }) => {
       <MUITabs
         value={value}
         onChange={(event: React.SyntheticEvent, newValue: string) => {
+          if (baseUrl) {
+            navigate(`${baseUrl}/${newValue}`)
+          }
+
           setValue(newValue)
         }}
-        aria-label="basic tabs example"
+        aria-label="Tabs"
         TabIndicatorProps={white && { sx: { backgroundColor: 'white' } }}
         textColor="inherit"
       >

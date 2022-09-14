@@ -23,6 +23,9 @@ export interface ListDetailLayoutProps {
   list: ListItemType[] | undefined
   baseUrl: string
   component: FC<PageProps>
+  componentProps?: { [key: string]: any }
+  // 'Add new' list item
+  add?: { icon?: string; label?: string; onAdd: () => void }
 }
 
 const ListDetailLayout: React.FC<ListDetailLayoutProps> = ({
@@ -30,6 +33,8 @@ const ListDetailLayout: React.FC<ListDetailLayoutProps> = ({
   list,
   baseUrl,
   component,
+  componentProps,
+  add,
 }) => {
   // Vars
   const [item, setItem] = useState<ListItemType>()
@@ -41,13 +46,11 @@ const ListDetailLayout: React.FC<ListDetailLayoutProps> = ({
 
   // Lifecycle
   useEffect(() => {
-    setItem(
-      findLast(
-        list,
-        (i) => i.key === window.location.pathname.split(`${baseUrl}/`)[1]
-      )?.item
-    )
-  }, [params])
+    let itemKey = window.location.pathname.split(`${baseUrl}/`)[1]
+    if (itemKey?.match('/')) itemKey = itemKey.split('/')[0]
+
+    setItem(findLast(list, (i) => i.key === itemKey))
+  }, [params, list])
 
   // Functions
 
@@ -61,25 +64,44 @@ const ListDetailLayout: React.FC<ListDetailLayoutProps> = ({
               {list ? (
                 list.map((listitem) => (
                   <Link to={`${baseUrl}/${listitem.key}`} key={listitem.key}>
-                    <ListItemButton>
+                    <ListItemButton selected={item?.key === listitem.key}>
                       {listitem.icon && (
                         <ListItemIcon>
                           <Icon icon={listitem.icon} />
                         </ListItemIcon>
                       )}
-                      <ListItemText primary={listitem.label} />
+                      <ListItemText
+                        primary={listitem.label}
+                        secondary={listitem.hint}
+                      />
                     </ListItemButton>
                   </Link>
                 ))
               ) : (
                 <Loading />
               )}
+              {add && (
+                <ListItemButton onClick={add.onAdd}>
+                  <ListItemIcon>
+                    <Icon icon={add.icon ?? 'plus'} />
+                  </ListItemIcon>
+                  <ListItemText primary={add.label ?? 'Add new'} />
+                </ListItemButton>
+              )}
             </List>
           </Card>
         </Grid>
       )}
       <Grid item xs={12} md={10}>
-        {item && <Component item={item} UI={UI} helpers={Helpers} />}
+        {item && (
+          <Component
+            item={item.item}
+            itemKey={item.key}
+            UI={UI}
+            helpers={Helpers}
+            {...componentProps}
+          />
+        )}
       </Grid>
     </Grid>
   )
