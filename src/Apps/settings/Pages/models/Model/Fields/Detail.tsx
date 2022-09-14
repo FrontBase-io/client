@@ -23,6 +23,7 @@ const ModelsModelFieldDetail: React.FC<PageProps> = ({
   useEffect(() => {
     update(item)
   }, [item])
+
   // Functions
 
   // UI
