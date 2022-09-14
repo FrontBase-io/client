@@ -7,7 +7,10 @@ import Card from '../Card'
 import RenderAppPage from './RenderAppPage'
 import Loading from '../Loading'
 
-const AppPagerCanvas: React.FC<{ app?: AppType }> = ({ app }) => {
+const AppPagerCanvas: React.FC<{ app?: AppType; appPages: AppPageType[] }> = ({
+  app,
+  appPages,
+}) => {
   // Vars
   const [page, setPage] = useState<AppPageType>()
   const { pageId } = useParams()
@@ -17,7 +20,7 @@ const AppPagerCanvas: React.FC<{ app?: AppType }> = ({ app }) => {
 
   // Lifecycle
   useEffect(() => {
-    setPage(findLast(app?.pages, (p) => p.key === pageId))
+    setPage(findLast(appPages, (p) => p.key === pageId))
   }, [pageId, app])
   useEffect(() => {
     if (page) {
@@ -37,7 +40,7 @@ const AppPagerCanvas: React.FC<{ app?: AppType }> = ({ app }) => {
     <>
       {!!!page?.content?.type ? (
         <Loading />
-      ) : page.content.type === 'app' ? (
+      ) : page.content.type === 'code' ? (
         <RenderAppPage app={app!} page={page} />
       ) : (
         <>Layout</>

@@ -12,7 +12,8 @@
 }
 
 .menu {
-  width: 40vw;
+  width: 60vw;
+  max-width: 450px;
   padding: 0;
   .menu-header {
     padding: var(--gap);

@@ -16,7 +16,10 @@ const RenderAppPage: React.FC<{ app: AppType; page: AppPageType }> = ({
   // Lifecycle
   useEffect(() => {
     setAppPageComponent(
-      lazy(() => import(`../../Apps/${app.key}/Pages/${page.key}/index`))
+      lazy(
+        () =>
+          import(`../../Apps/${app.key}/Pages/${page.content.pageKey}/index`)
+      )
     )
     // import('../../Apps/settings/Pages/models/index').then((component) => {
     // import Helpers from './Helpers';
@@ -31,7 +34,7 @@ const RenderAppPage: React.FC<{ app: AppType; page: AppPageType }> = ({
   return (
     <>
       {AppPageComponent ? (
-        <AppPageComponent UI={UI} helpers={Helpers} />
+        <AppPageComponent UI={UI} helpers={Helpers} {...page.props} />
       ) : (
         <Loading />
       )}

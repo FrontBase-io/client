@@ -6,12 +6,13 @@ import { AppContext } from '../../App'
 import AppPagerCanvas from '../../Components/AppPageCanvas'
 import Icon from '../../Components/Icon'
 import Desktop from '../../Pages/Desktop'
-import { AppType } from '../../Types/App'
+import { AppPageType, AppType } from '../../Types/App'
 import styles from './appdetail.module.scss'
 
 const AppDetail: React.FC<{ apps: AppType[] | undefined }> = ({ apps }) => {
   // Vars
   const [app, setApp] = useState<AppType>()
+  const [appPages, setAppPages] = useState<AppPageType[]>([])
 
   // Hooks
   let { appId } = useParams()
@@ -26,6 +27,18 @@ const AppDetail: React.FC<{ apps: AppType[] | undefined }> = ({ apps }) => {
   // Mark the current app as the active app
   useEffect(() => {
     if (app && setCurrentApp) setCurrentApp(app)
+    if (app) {
+      if (app.dynamic_pages) {
+        import(`../../Apps/${app.code}/App.ts`).then((ac) => {
+          const appClass = new ac.default()
+          appClass
+            .getPages()
+            .then((newPages: AppPageType[]) => setAppPages(newPages))
+        })
+      } else {
+        if (app.pages) setAppPages(app.pages)
+      }
+    }
     return () => {
       if (setCurrentApp) setCurrentApp(null)
     }
@@ -39,7 +52,10 @@ const AppDetail: React.FC<{ apps: AppType[] | undefined }> = ({ apps }) => {
       {({ currentPage }) => (
         <>
           <Routes>
-            <Route path={`:pageId/*`} element={<AppPagerCanvas app={app} />} />
+            <Route
+              path={`:pageId/*`}
+              element={<AppPagerCanvas app={app} appPages={appPages} />}
+            />
             <Route path="/" element={<Desktop />} />
           </Routes>
 
@@ -48,7 +64,7 @@ const AppDetail: React.FC<{ apps: AppType[] | undefined }> = ({ apps }) => {
             value={currentPage?.key}
             className={styles.bottomnavigation}
           >
-            {(app?.pages ?? []).map((page) => (
+            {appPages.map((page) => (
               <BottomNavigationAction
                 label={page.label}
                 value={page.key}

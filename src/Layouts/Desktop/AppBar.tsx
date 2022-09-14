@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
-import { AppType } from '../../Types/App'
+import { AppPageType, AppType } from '../../Types/App'
 import { AppContext, ColorContext } from '../../App'
 import {
   List,
@@ -13,7 +13,10 @@ import {
 import Icon from '../../Components/Icon'
 import { Link } from 'react-router-dom'
 
-const AppBar: React.FC<{ app?: AppType }> = ({ app }) => {
+const AppBar: React.FC<{ app?: AppType; appPages: AppPageType[] }> = ({
+  app,
+  appPages,
+}) => {
   // Vars
   const [expanded, setExpanded] = useState<boolean>(false)
 
@@ -21,6 +24,7 @@ const AppBar: React.FC<{ app?: AppType }> = ({ app }) => {
   useEffect(() => {
     setExpanded(false)
   }, [app])
+
   // Functions
 
   // UI
@@ -54,7 +58,7 @@ const AppBar: React.FC<{ app?: AppType }> = ({ app }) => {
                 </div>
               </Link>
               <List>
-                {(app?.pages ?? []).map((page) => (
+                {appPages?.map((page) => (
                   <Tooltip
                     title={page.label}
                     placement="right"
@@ -82,7 +86,7 @@ const AppBar: React.FC<{ app?: AppType }> = ({ app }) => {
                           <Icon icon={page.icon} />
                         </ListItemIcon>
                         <ListItemText primary={page.label} />
-                      </ListItemButton>{' '}
+                      </ListItemButton>
                     </Link>
                   </Tooltip>
                 ))}

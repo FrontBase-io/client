@@ -2,10 +2,13 @@ import { ColorContext } from '../../App'
 import styles from './styles.module.scss'
 import AppHeader from '../../Components/AppHeader'
 import { Route, Routes } from 'react-router-dom'
-import { AppType } from '../../Types/App'
+import { AppPageType, AppType } from '../../Types/App'
 import AppPagerCanvas from '../../Components/AppPageCanvas'
 
-const AppContent: React.FC<{ app?: AppType }> = ({ app }) => {
+const AppContent: React.FC<{ app?: AppType; appPages: AppPageType[] }> = ({
+  app,
+  appPages,
+}) => {
   // Vars
 
   // Lifecycle
@@ -26,7 +29,7 @@ const AppContent: React.FC<{ app?: AppType }> = ({ app }) => {
             <Routes>
               <Route
                 path={`:pageId/*`}
-                element={<AppPagerCanvas app={app} />}
+                element={<AppPagerCanvas app={app} appPages={appPages} />}
               />
             </Routes>
           </div>

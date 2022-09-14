@@ -7,11 +7,14 @@ export interface AppType extends ObjectType {
   color: ColorType
   icon: string
   pages: AppPageType[]
+  code?: string
+  dynamic_pages?: true
 }
 
 export interface AppPageType {
   label: string
   key: string
   icon: string
-  content: { type: 'app' | 'layout' }
+  content: { type: 'code' | 'layout'; pageKey?: string }
+  props?: { [key: string]: any }
 }

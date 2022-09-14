@@ -1,6 +1,6 @@
 import AppBar from './AppBar'
 import AppContent from './AppContent'
-import { AppType } from '../../Types/App'
+import { AppPageType, AppType } from '../../Types/App'
 import { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { findLast } from 'lodash'
@@ -9,7 +9,7 @@ import { AppContext } from '../../App'
 const AppDetail: React.FC<{ apps: AppType[] | undefined }> = ({ apps }) => {
   // Vars
   const [app, setApp] = useState<AppType>()
-
+  const [appPages, setAppPages] = useState<AppPageType[]>([])
   // Hooks
   let { appId } = useParams()
   const { setCurrentApp } = useContext(AppContext)
@@ -22,6 +22,20 @@ const AppDetail: React.FC<{ apps: AppType[] | undefined }> = ({ apps }) => {
   // Mark the current app as the active app
   useEffect(() => {
     if (app && setCurrentApp) setCurrentApp(app)
+
+    if (app) {
+      if (app.dynamic_pages) {
+        import(`../../Apps/${app.code}/App.ts`).then((ac) => {
+          const appClass = new ac.default()
+          appClass
+            .getPages()
+            .then((newPages: AppPageType[]) => setAppPages(newPages))
+        })
+      } else {
+        if (app.pages) setAppPages(app.pages)
+      }
+    }
+
     return () => {
       if (setCurrentApp) setCurrentApp(null)
     }
@@ -32,8 +46,8 @@ const AppDetail: React.FC<{ apps: AppType[] | undefined }> = ({ apps }) => {
   // UI
   return (
     <>
-      <AppBar app={app} />
-      <AppContent app={app} />
+      <AppBar app={app} appPages={appPages} />
+      <AppContent app={app} appPages={appPages} />
     </>
   )
 }
