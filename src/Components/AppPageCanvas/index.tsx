@@ -21,7 +21,7 @@ const AppPagerCanvas: React.FC<{ app?: AppType; appPages: AppPageType[] }> = ({
   // Lifecycle
   useEffect(() => {
     setPage(findLast(appPages, (p) => p.key === pageId))
-  }, [pageId, app])
+  }, [pageId, app, appPages])
   useEffect(() => {
     if (page) {
       if (setAppBar) setAppBar({ label: page.label })
@@ -38,7 +38,7 @@ const AppPagerCanvas: React.FC<{ app?: AppType; appPages: AppPageType[] }> = ({
   // UI
   return (
     <>
-      {!!!page?.content?.type ? (
+      {!page?.content?.type ? (
         <Loading />
       ) : page.content.type === 'code' ? (
         <RenderAppPage app={app!} page={page} />

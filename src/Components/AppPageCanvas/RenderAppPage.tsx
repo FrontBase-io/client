@@ -21,14 +21,9 @@ const RenderAppPage: React.FC<{ app: AppType; page: AppPageType }> = ({
           import(`../../Apps/${app.key}/Pages/${page.content.pageKey}/index`)
       )
     )
-    // import('../../Apps/settings/Pages/models/index').then((component) => {
-    // import Helpers from './Helpers';
-    // setAppPageComponent(component.default)
-    // })
   }, [page, app])
 
   // Functions
-  ///Apps/{app.key}/Pages/{page.key}/index.tsx
 
   // UI
   return (

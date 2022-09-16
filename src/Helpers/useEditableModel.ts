@@ -24,9 +24,12 @@ const useEditable: useEditableType = (original) => {
     changed,
     updatedFields,
     set: (field: string, value: any) => {
+      console.log(editable)
+
       setChanged(true)
       setUpdatedFields(uniq([...updatedFields, field]))
       setEditable(cloneDeep({ ...editable, [field]: value }))
+      console.log(editable)
     },
     updateModel: () => {
       const changedFields: { [key: string]: any } = {}

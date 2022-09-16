@@ -47,9 +47,10 @@ const ModelLayoutDetail: React.FC<PageProps> = ({
         <AnimateItem>
           <Card animate title="Layout">
             <LayoutDesigner
-              layout={editable.layout}
+              layout={[...editable.layout]}
               onChange={(a) => {
                 set('layout', cloneDeep(a))
+                update({ ...item, layout: a })
               }}
             />
           </Card>

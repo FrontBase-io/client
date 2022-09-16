@@ -16,7 +16,9 @@ const LayoutDesigner: React.FC<{
   // UI
   return (
     <div className={styles['layout-designer']}>
-      <>{layout.map((l) => JSON.stringify(l))}</>
+      {layout.map((l) => (
+        <div>{l.id}</div>
+      ))}
       <Dropzone
         onDropped={(droppedItem) =>
           onChange(cloneDeep([...layout, droppedItem]))

@@ -13,7 +13,7 @@ const Dropzone: React.FC<{
   // Vars
 
   // Hooks
-  const [{ isOver, isOverCurrent }, drop] = useDrop(
+  const [{ isOverCurrent }, drop] = useDrop(
     () => ({
       accept: ItemTypes.BOX,
       drop(_item: ModelLayoutItemType, monitor) {
