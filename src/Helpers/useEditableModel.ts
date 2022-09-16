@@ -1,4 +1,4 @@
-import { uniq } from 'lodash'
+import { cloneDeep, uniq } from 'lodash'
 import { useState } from 'react'
 import { ModelType } from '../Types/Model'
 import { useData } from '../Utils/Data'
@@ -26,7 +26,7 @@ const useEditable: useEditableType = (original) => {
     set: (field: string, value: any) => {
       setChanged(true)
       setUpdatedFields(uniq([...updatedFields, field]))
-      setEditable({ ...editable, [field]: value })
+      setEditable(cloneDeep({ ...editable, [field]: value }))
     },
     updateModel: () => {
       const changedFields: { [key: string]: any } = {}

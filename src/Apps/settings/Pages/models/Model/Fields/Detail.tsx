@@ -9,6 +9,7 @@ const ModelsModelFieldDetail: React.FC<PageProps> = ({
   UI: {
     Card,
     Inputs: { TextInput, SelectInput },
+    Animation: { AnimateGroup, AnimateItem },
   },
   helpers: { useEditable },
   item,
@@ -29,35 +30,41 @@ const ModelsModelFieldDetail: React.FC<PageProps> = ({
   // UI
   return (
     <>
-      <Card title={editable.name} animate>
-        <div className="margin-y">
-          <Grid container spacing={3}>
-            <Grid item xs={8}>
-              <TextInput
-                label="Test"
-                value={editable.name}
-                onChange={(v) => set('name', v)}
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <SelectInput
-                label="Type"
-                value={editable.type}
-                onChange={(v) => set('type', v)}
-                options={[
-                  { label: 'Text', key: 'text' },
-                  { label: 'Number', key: 'number' },
-                  { label: 'List', key: 'list' },
-                  { label: 'Formula', key: 'formula' },
-                ]}
-              />
-            </Grid>
-          </Grid>
-        </div>
-      </Card>
-      <Card title="Options" animate>
-        {editable.type}
-      </Card>
+      <AnimateGroup>
+        <AnimateItem>
+          <Card title={editable.name} animate>
+            <div className="margin-y">
+              <Grid container spacing={3}>
+                <Grid item xs={8}>
+                  <TextInput
+                    label="Test"
+                    value={editable.name}
+                    onChange={(v) => set('name', v)}
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <SelectInput
+                    label="Type"
+                    value={editable.type}
+                    onChange={(v) => set('type', v)}
+                    options={[
+                      { label: 'Text', key: 'text' },
+                      { label: 'Number', key: 'number' },
+                      { label: 'List', key: 'list' },
+                      { label: 'Formula', key: 'formula' },
+                    ]}
+                  />
+                </Grid>
+              </Grid>
+            </div>
+          </Card>
+        </AnimateItem>
+        <AnimateItem>
+          <Card title="Options" animate>
+            {editable.type}
+          </Card>
+        </AnimateItem>
+      </AnimateGroup>
       {changed && (
         <Fab
           onClick={() => {

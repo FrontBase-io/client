@@ -19,3 +19,12 @@ export interface ModelOverviewType {
   label: string
   fields: string[]
 }
+
+export interface ModelLayoutType {
+  label: string
+  layout: ModelLayoutItemType[]
+}
+export interface ModelLayoutItemType {
+  id: string
+  type: 'text'
+}

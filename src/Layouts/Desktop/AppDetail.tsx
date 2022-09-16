@@ -19,6 +19,7 @@ const AppDetail: React.FC<{ apps: AppType[] | undefined }> = ({ apps }) => {
   useEffect(() => {
     setApp(findLast(apps, (app) => app.key === appId))
   }, [apps, appId])
+
   // Mark the current app as the active app
   useEffect(() => {
     if (app && setCurrentApp) setCurrentApp(app)

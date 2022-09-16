@@ -3,6 +3,7 @@ import FourOhFour from '../../../../../Components/FourOhFour'
 import ModelsModelModel from './Model/index'
 import ModelsModelFields from './Fields/index'
 import ModelsOverviews from './Overviews'
+import ModelLayouts from './Layouts'
 
 const ModelsModel: React.FC<PageProps> = ({ UI: { Tabs }, item }) => {
   // Vars
@@ -35,7 +36,12 @@ const ModelsModel: React.FC<PageProps> = ({ UI: { Tabs }, item }) => {
           component: ModelsOverviews,
           props: { model: item },
         },
-        { label: 'Layouts', key: 'layouts', component: FourOhFour },
+        {
+          label: 'Layouts',
+          key: 'layouts',
+          component: ModelLayouts,
+          props: { model: item },
+        },
         { label: 'Permissions', key: 'permissions', component: FourOhFour },
       ]}
     />

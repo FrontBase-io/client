@@ -22,7 +22,7 @@ const AppBar: React.FC<{ app?: AppType; appPages: AppPageType[] }> = ({
 
   // Lifecycle
   useEffect(() => {
-    setExpanded(false)
+    setExpanded(true)
   }, [app])
 
   // Functions

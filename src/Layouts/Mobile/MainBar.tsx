@@ -1,5 +1,5 @@
 import { AppBar, Box, IconButton, Toolbar, Typography } from '@mui/material'
-import { AppContext, ColorContext } from '../../App'
+import { AppContext } from '../../App'
 import Icon from '../../Components/Icon'
 import styles from './mainbar.module.scss'
 

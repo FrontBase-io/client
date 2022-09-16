@@ -29,6 +29,8 @@ import DesktopLayout from './Layouts/Desktop/Layout'
 import { AppPageType, AppType } from './Types/App'
 import { getHex } from './Utils/Color'
 import TextInput from './Components/Inputs/Text'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+import { DndProvider } from 'react-dnd'
 
 interface AppbarType {
   label: string
@@ -144,106 +146,108 @@ function App() {
   // UI
 
   return (
-    <ColorContext.Provider value={{ primary, secondary }}>
-      <AppContext.Provider
-        value={{
-          currentApp,
-          setCurrentApp: handleSetCurrentApp,
-          currentPage,
-          setCurrentPage,
-          appBar,
-          setAppBar,
-        }}
-      >
-        <DialogContext.Provider value={{ dialog, setDialog }}>
-          <BrowserRouter>
-            <ThemeProvider
-              theme={createTheme({
-                palette: {
-                  mode: colorMode,
-                  primary: {
-                    main: primary,
+    <DndProvider backend={HTML5Backend}>
+      <ColorContext.Provider value={{ primary, secondary }}>
+        <AppContext.Provider
+          value={{
+            currentApp,
+            setCurrentApp: handleSetCurrentApp,
+            currentPage,
+            setCurrentPage,
+            appBar,
+            setAppBar,
+          }}
+        >
+          <DialogContext.Provider value={{ dialog, setDialog }}>
+            <BrowserRouter>
+              <ThemeProvider
+                theme={createTheme({
+                  palette: {
+                    mode: colorMode,
+                    primary: {
+                      main: primary,
+                    },
                   },
-                },
-              })}
-            >
-              {serverIsReady ? (
-                user === undefined ? (
-                  <Loading />
-                ) : user ? (
-                  <>
-                    <Hidden mdUp>
-                      <MobileLayout />
-                    </Hidden>
-                    <Hidden mdDown>
-                      <DesktopLayout />
-                    </Hidden>
-                  </>
+                })}
+              >
+                {serverIsReady ? (
+                  user === undefined ? (
+                    <Loading />
+                  ) : user ? (
+                    <>
+                      <Hidden mdUp>
+                        <MobileLayout />
+                      </Hidden>
+                      <Hidden mdDown>
+                        <DesktopLayout />
+                      </Hidden>
+                    </>
+                  ) : (
+                    <Login />
+                  )
                 ) : (
-                  <Login />
-                )
-              ) : (
-                <ServerSetup />
+                  <ServerSetup />
+                )}
+                <Snackbar open={!connected}>
+                  <Alert severity="info">
+                    {t('system.connection.connecting')}
+                  </Alert>
+                </Snackbar>
+              </ThemeProvider>
+            </BrowserRouter>
+            <Dialog
+              open={dialog.show}
+              onClose={() => setDialog({ ...dialog, show: false })}
+            >
+              {dialog.title && <DialogTitle>{dialog.title}</DialogTitle>}
+              <DialogContent>
+                <>
+                  {dialog.text && (
+                    <DialogContentText>{dialog.text}</DialogContentText>
+                  )}
+                  {dialog.form && (
+                    <Grid container spacing={3}>
+                      {dialog.form.map((formItem) => (
+                        <Grid item xs={12} key={formItem.key}>
+                          <TextInput
+                            label={formItem.label}
+                            value={dialogFormContent[formItem.key] ?? ''}
+                            onChange={(newValue) => {
+                              setDialogFormContent({
+                                ...dialogFormContent,
+                                [formItem.key]: newValue,
+                              })
+                            }}
+                          />
+                        </Grid>
+                      ))}
+                    </Grid>
+                  )}
+                </>
+              </DialogContent>
+              {dialog.actions && (
+                <DialogActions>
+                  {dialog.actions.map((dialogAction, index) => (
+                    <Button
+                      key={`dialog-action-${index}`}
+                      onClick={() => {
+                        dialogAction.onClick &&
+                          dialogAction.onClick(dialogFormContent)
+                        setDialogFormContent({})
+                        setDialog({ ...dialog, show: false })
+                      }}
+                      autoFocus
+                    >
+                      {dialogAction.label}
+                    </Button>
+                  ))}
+                </DialogActions>
               )}
-              <Snackbar open={!connected}>
-                <Alert severity="info">
-                  {t('system.connection.connecting')}
-                </Alert>
-              </Snackbar>
-            </ThemeProvider>
-          </BrowserRouter>
-          <Dialog
-            open={dialog.show}
-            onClose={() => setDialog({ ...dialog, show: false })}
-          >
-            {dialog.title && <DialogTitle>{dialog.title}</DialogTitle>}
-            <DialogContent>
-              <>
-                {dialog.text && (
-                  <DialogContentText>{dialog.text}</DialogContentText>
-                )}
-                {dialog.form && (
-                  <Grid container spacing={3}>
-                    {dialog.form.map((formItem) => (
-                      <Grid item xs={12} key={formItem.key}>
-                        <TextInput
-                          label={formItem.label}
-                          value={dialogFormContent[formItem.key] ?? ''}
-                          onChange={(newValue) => {
-                            setDialogFormContent({
-                              ...dialogFormContent,
-                              [formItem.key]: newValue,
-                            })
-                          }}
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
-                )}
-              </>
-            </DialogContent>
-            {dialog.actions && (
-              <DialogActions>
-                {dialog.actions.map((dialogAction, index) => (
-                  <Button
-                    key={`dialog-action-${index}`}
-                    onClick={() => {
-                      dialogAction.onClick &&
-                        dialogAction.onClick(dialogFormContent)
-                      setDialogFormContent({})
-                      setDialog({ ...dialog, show: false })
-                    }}
-                    autoFocus
-                  >
-                    {dialogAction.label}
-                  </Button>
-                ))}
-              </DialogActions>
-            )}
-          </Dialog>
-        </DialogContext.Provider>
-      </AppContext.Provider>
-    </ColorContext.Provider>
+            </Dialog>
+          </DialogContext.Provider>
+        </AppContext.Provider>
+      </ColorContext.Provider>
+    </DndProvider>
   )
 }
 
