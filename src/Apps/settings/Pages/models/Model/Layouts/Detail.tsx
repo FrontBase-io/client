@@ -1,4 +1,5 @@
 import { Fab } from '@mui/material'
+import { cloneDeep } from 'lodash'
 import { useEffect } from 'react'
 import Icon from '../../../../../../Components/Icon'
 import LayoutDesigner from '../../../../../../Components/LayoutDesigner'
@@ -7,7 +8,6 @@ import useEditable from '../../../../../../Helpers/useEditableModel'
 import { ModelLayoutType } from '../../../../../../Types/Model'
 import { useData } from '../../../../../../Utils/Data'
 import { PageProps } from '../../../../../Types'
-import { cloneDeep } from 'lodash'
 
 const ModelLayoutDetail: React.FC<PageProps> = ({
   UI: {
@@ -47,11 +47,8 @@ const ModelLayoutDetail: React.FC<PageProps> = ({
         <AnimateItem>
           <Card animate title="Layout">
             <LayoutDesigner
-              layout={[...editable.layout]}
-              onChange={(a) => {
-                set('layout', cloneDeep(a))
-                update({ ...item, layout: a })
-              }}
+              layout={editable.layout}
+              onChange={(newLayout) => set('layout', cloneDeep([...newLayout]))}
             />
           </Card>
         </AnimateItem>

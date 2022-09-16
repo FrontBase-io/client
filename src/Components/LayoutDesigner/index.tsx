@@ -1,4 +1,3 @@
-import { cloneDeep } from 'lodash'
 import { ModelLayoutItemType } from '../../Types/Model'
 import Dropzone from './DropZone'
 import styles from './styles.module.scss'
@@ -17,12 +16,10 @@ const LayoutDesigner: React.FC<{
   return (
     <div className={styles['layout-designer']}>
       {layout.map((l) => (
-        <div>{l.id}</div>
+        <div key={l.id}>{l.id}</div>
       ))}
       <Dropzone
-        onDropped={(droppedItem) =>
-          onChange(cloneDeep([...layout, droppedItem]))
-        }
+        onDropped={(droppedItem) => onChange([...layout, droppedItem])}
       />
     </div>
   )
