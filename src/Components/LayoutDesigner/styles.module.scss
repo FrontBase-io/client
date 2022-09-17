@@ -44,4 +44,7 @@
   border: 1px solid #d1d1d1;
   margin: 5px;
   border-radius: var(--border-radius);
+  @media (prefers-color-scheme: dark) {
+    border: 1px solid #2a2a2a;
+  }
 }

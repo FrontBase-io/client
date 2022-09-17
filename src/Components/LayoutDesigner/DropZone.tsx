@@ -41,7 +41,7 @@ const Dropzone: React.FC<{
       style={isOverCurrent ? { backgroundColor: '#fdfdfd' } : {}}
     >
       {children}
-      <div>
+      <div style={{ textAlign: 'center' }}>
         <>Drop components here</>
       </div>
     </div>

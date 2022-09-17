@@ -29,7 +29,6 @@ import DesktopLayout from './Layouts/Desktop/Layout'
 import { AppPageType, AppType } from './Types/App'
 import { getHex } from './Utils/Color'
 import TextInput from './Components/Inputs/Text'
-import { HTML5Backend } from 'react-dnd-html5-backend'
 import CheckboxInput from './Components/Inputs/Checkbox'
 
 import { DndProvider } from 'react-dnd-multi-backend'

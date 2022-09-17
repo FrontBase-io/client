@@ -4,13 +4,12 @@ import { ItemTypes } from './ItemTypes'
 import styles from './styles.module.scss'
 const DragItem: React.FC<{
   label: string
-  type: 'text' | 'card'
-  nestable?: true
-}> = ({ label, type, nestable }) => {
+  type: 'text' | 'card' | 'fields'
+}> = ({ label, type }) => {
   // Vars
   const [, drag] = useDrag(() => ({
     type: ItemTypes.BOX,
-    item: { type, label, nestable },
+    item: { type, label },
   }))
 
   // Lifecycle

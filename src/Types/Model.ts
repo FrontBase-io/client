@@ -29,4 +29,5 @@ export interface ModelLayoutItemType {
   label: string
   type: 'text' | 'card'
   items: ModelLayoutItemType[]
+  settings?: { [key: string]: any }
 }

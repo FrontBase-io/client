@@ -9,11 +9,14 @@ import { ModelLayoutType } from '../../../../../../Types/Model'
 import { useData } from '../../../../../../Utils/Data'
 import { PageProps } from '../../../../../Types'
 import PreviewCard from './PreviewComponents/Card'
+import PreviewFields from './PreviewComponents/Fields'
+import PreviewText from './PreviewComponents/Text'
 
 const ModelLayoutDetail: React.FC<PageProps> = ({
   UI: {
     Card,
     Animation: { AnimateGroup, AnimateItem },
+    Inputs: { TextInput },
   },
   item,
   itemKey,
@@ -36,14 +39,19 @@ const ModelLayoutDetail: React.FC<PageProps> = ({
     <>
       <AnimateGroup>
         <AnimateItem>
-          <Card animate title={item.label}>
-            {JSON.stringify(editable)}
+          <Card animate title={editable.label}>
+            <TextInput
+              label="Title"
+              value={editable.label}
+              onChange={(v) => set('label', v)}
+            />
           </Card>
         </AnimateItem>
         <AnimateItem>
           <Card>
             <DragItem label="Text" type="text" />
-            <DragItem label="Card" type="card" nestable />
+            <DragItem label="Card" type="card" />
+            <DragItem label="Fields" type="fields" />
           </Card>
         </AnimateItem>
         <AnimateItem>
@@ -54,14 +62,33 @@ const ModelLayoutDetail: React.FC<PageProps> = ({
               items={{
                 text: {
                   label: 'Text',
+                  preview: PreviewText,
                   settings: [{ label: 'Text', key: 'text', type: 'text' }],
                 },
                 card: {
                   label: 'Card',
                   nestable: true,
-                  preview: PreviewCard,
+                  wrapper: PreviewCard,
                   settings: [
+                    { label: 'Title', key: 'title', type: 'text' },
                     { label: 'Animate', key: 'animate', type: 'boolean' },
+                    {
+                      label: 'Without padding',
+                      key: 'withoutPadding',
+                      type: 'boolean',
+                    },
+                    {
+                      label: 'Center',
+                      key: 'center',
+                      type: 'boolean',
+                    },
+                  ],
+                },
+                fields: {
+                  label: 'Fields',
+                  preview: PreviewFields,
+                  settings: [
+                    { label: 'Auto mode', key: 'auto', type: 'boolean' },
                   ],
                 },
               }}

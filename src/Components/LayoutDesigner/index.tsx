@@ -10,7 +10,14 @@ import styles from './styles.module.scss'
 interface ItemType {
   label: string
   nestable?: true
-  preview?: FC<{ children: JSX.Element | JSX.Element[] }>
+  wrapper?: FC<{
+    children: JSX.Element | JSX.Element[]
+    layoutItem: ModelLayoutItemType
+  }>
+  preview?: FC<{
+    children?: JSX.Element | JSX.Element[]
+    layoutItem: ModelLayoutItemType
+  }>
   settings?: DialogInputType[]
 }
 
@@ -25,7 +32,7 @@ const LayoutItem: React.FC<{
   return (
     <DialogContext.Consumer>
       {({ setDialog }) => (
-        <MaybeWrapper Wrapper={item.preview}>
+        <MaybeWrapper Wrapper={item.wrapper} layoutItem={layoutItem}>
           <div className={styles.item} title={item.label}>
             <div
               style={{
@@ -48,7 +55,14 @@ const LayoutItem: React.FC<{
                       actions: [
                         {
                           label: 'Update',
-                          onClick: (form) => console.log(form),
+                          onClick: (form) =>
+                            onChange({
+                              ...layoutItem,
+                              settings: {
+                                ...(layoutItem.settings ?? {}),
+                                ...form,
+                              },
+                            }),
                         },
                       ],
                     })
@@ -58,6 +72,7 @@ const LayoutItem: React.FC<{
                 </IconButton>
               </div>
             </div>
+            {item.preview && <item.preview layoutItem={layoutItem} />}
             {item.nestable && (
               <Dropzone
                 onDropped={(a) => {
@@ -140,6 +155,14 @@ export default LayoutDesigner
 
 const MaybeWrapper: FC<{
   children: JSX.Element
-  Wrapper?: FC<{ children: JSX.Element | JSX.Element[] }>
-}> = ({ children, Wrapper }) =>
-  Wrapper ? <Wrapper>{children}</Wrapper> : <>{children}</>
+  Wrapper?: FC<{
+    children: JSX.Element | JSX.Element[]
+    layoutItem: ModelLayoutItemType
+  }>
+  layoutItem: ModelLayoutItemType
+}> = ({ children, Wrapper, layoutItem }) =>
+  Wrapper ? (
+    <Wrapper layoutItem={layoutItem}>{children}</Wrapper>
+  ) : (
+    <>{children}</>
+  )
