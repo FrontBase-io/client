@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -30,8 +30,10 @@ import { AppPageType, AppType } from './Types/App'
 import { getHex } from './Utils/Color'
 import TextInput from './Components/Inputs/Text'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import { DndProvider } from 'react-dnd'
 import CheckboxInput from './Components/Inputs/Checkbox'
+
+import { DndProvider } from 'react-dnd-multi-backend'
+import { HTML5toTouch } from 'rdndmb-html5-to-touch' // or any other pipeline
 
 interface AppbarType {
   label: string
@@ -148,7 +150,7 @@ function App() {
   // UI
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider options={HTML5toTouch}>
       <ColorContext.Provider value={{ primary, secondary }}>
         <AppContext.Provider
           value={{
