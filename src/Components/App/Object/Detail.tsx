@@ -1,5 +1,6 @@
 import { ObjectType } from '../../../Types/Object'
-import { ModelType } from '../../../Types/Model'
+import { ModelLayoutItemType, ModelType } from '../../../Types/Model'
+import LayoutItem from './LayoutItem'
 
 const ObjectDetail: React.FC<{ object: ObjectType; model: ModelType }> = ({
   object,
@@ -14,8 +15,9 @@ const ObjectDetail: React.FC<{ object: ObjectType; model: ModelType }> = ({
   // UI
   return (
     <>
-      <div>{JSON.stringify(object)}</div>
-      <div>{JSON.stringify(model)}</div>
+      {model.layouts['default'].layout.map((li) => (
+        <LayoutItem key={li.id} layoutItem={li} model={model} />
+      ))}
     </>
   )
 }

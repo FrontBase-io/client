@@ -8,6 +8,7 @@ export interface ModelType extends ObjectType {
   icon: string
   fields: { [key: string]: ModelFieldType }
   overviews: { [key: string]: ModelOverviewType }
+  layouts: { [key: string]: ModelLayoutType }
 }
 
 export interface ModelFieldType {
@@ -27,7 +28,7 @@ export interface ModelLayoutType {
 export interface ModelLayoutItemType {
   id: string
   label: string
-  type: 'text' | 'card'
+  type: 'text' | 'card' | 'fields'
   items: ModelLayoutItemType[]
   settings?: { [key: string]: any }
 }
