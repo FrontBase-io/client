@@ -8,6 +8,7 @@ import useEditable from '../../../../../../Helpers/useEditableModel'
 import { ModelLayoutType } from '../../../../../../Types/Model'
 import { useData } from '../../../../../../Utils/Data'
 import { PageProps } from '../../../../../Types'
+import PreviewCard from './PreviewComponents/Card'
 
 const ModelLayoutDetail: React.FC<PageProps> = ({
   UI: {
@@ -41,7 +42,8 @@ const ModelLayoutDetail: React.FC<PageProps> = ({
         </AnimateItem>
         <AnimateItem>
           <Card>
-            <DragItem name="Text" type="text" />
+            <DragItem label="Text" type="text" />
+            <DragItem label="Card" type="card" nestable />
           </Card>
         </AnimateItem>
         <AnimateItem>
@@ -49,6 +51,20 @@ const ModelLayoutDetail: React.FC<PageProps> = ({
             <LayoutDesigner
               layout={editable.layout}
               onChange={(newLayout) => set('layout', cloneDeep([...newLayout]))}
+              items={{
+                text: {
+                  label: 'Text',
+                  settings: [{ label: 'Text', key: 'text', type: 'text' }],
+                },
+                card: {
+                  label: 'Card',
+                  nestable: true,
+                  preview: PreviewCard,
+                  settings: [
+                    { label: 'Animate', key: 'animate', type: 'boolean' },
+                  ],
+                },
+              }}
             />
           </Card>
         </AnimateItem>

@@ -26,5 +26,7 @@ export interface ModelLayoutType {
 }
 export interface ModelLayoutItemType {
   id: string
-  type: 'text'
+  label: string
+  type: 'text' | 'card'
+  items: ModelLayoutItemType[]
 }

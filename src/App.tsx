@@ -31,14 +31,16 @@ import { getHex } from './Utils/Color'
 import TextInput from './Components/Inputs/Text'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
+import CheckboxInput from './Components/Inputs/Checkbox'
 
 interface AppbarType {
   label: string
 }
 
-interface DialogInputType {
+export interface DialogInputType {
   label: string
   key: string
+  type?: 'text' | 'number' | 'boolean' | 'select'
 }
 interface DialogActionType {
   label: string
@@ -209,16 +211,30 @@ function App() {
                     <Grid container spacing={3}>
                       {dialog.form.map((formItem) => (
                         <Grid item xs={12} key={formItem.key}>
-                          <TextInput
-                            label={formItem.label}
-                            value={dialogFormContent[formItem.key] ?? ''}
-                            onChange={(newValue) => {
-                              setDialogFormContent({
-                                ...dialogFormContent,
-                                [formItem.key]: newValue,
-                              })
-                            }}
-                          />
+                          {(formItem.type === 'text' || !formItem.type) && (
+                            <TextInput
+                              label={formItem.label}
+                              value={dialogFormContent[formItem.key] ?? ''}
+                              onChange={(newValue) => {
+                                setDialogFormContent({
+                                  ...dialogFormContent,
+                                  [formItem.key]: newValue,
+                                })
+                              }}
+                            />
+                          )}
+                          {formItem.type === 'boolean' && (
+                            <CheckboxInput
+                              label={formItem.label}
+                              value={dialogFormContent[formItem.key] ?? false}
+                              onChange={(newValue) => {
+                                setDialogFormContent({
+                                  ...dialogFormContent,
+                                  [formItem.key]: newValue,
+                                })
+                              }}
+                            />
+                          )}
                         </Grid>
                       ))}
                     </Grid>

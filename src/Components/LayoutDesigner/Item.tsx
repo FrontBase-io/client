@@ -1,13 +1,16 @@
-import { uniqueId } from 'lodash'
 import { useDrag } from 'react-dnd'
 import { ItemTypes } from './ItemTypes'
 
 import styles from './styles.module.scss'
-const DragItem: React.FC<{ name: string; type: 'text' }> = ({ name, type }) => {
+const DragItem: React.FC<{
+  label: string
+  type: 'text' | 'card'
+  nestable?: true
+}> = ({ label, type, nestable }) => {
   // Vars
   const [, drag] = useDrag(() => ({
     type: ItemTypes.BOX,
-    item: { type },
+    item: { type, label, nestable },
   }))
 
   // Lifecycle
@@ -17,7 +20,7 @@ const DragItem: React.FC<{ name: string; type: 'text' }> = ({ name, type }) => {
   // UI
   return (
     <div ref={drag} className={styles.draggable}>
-      {name}
+      {label}
     </div>
   )
 }

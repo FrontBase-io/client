@@ -4,7 +4,7 @@ import styles from './styles.module.scss'
 
 export interface CardProps {
   title?: string | JSX.Element | false | null
-  children: JSX.Element | string
+  children: JSX.Element | string | JSX.Element[]
   animate?: true
   style?: CSSProperties
   className?: string

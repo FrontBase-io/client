@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useDrop } from 'react-dnd'
 import { ModelLayoutItemType } from '../../Types/Model'
 import { ItemTypes } from './ItemTypes'
@@ -9,7 +8,8 @@ import { cloneDeep } from 'lodash'
 
 const Dropzone: React.FC<{
   onDropped: (newLayout: ModelLayoutItemType) => void
-}> = ({ onDropped }) => {
+  children?: JSX.Element | JSX.Element[]
+}> = ({ onDropped, children }) => {
   // Vars
 
   // Hooks
@@ -40,6 +40,7 @@ const Dropzone: React.FC<{
       className={styles.dropzone}
       style={isOverCurrent ? { backgroundColor: '#fdfdfd' } : {}}
     >
+      {children}
       <div>
         <>Drop components here</>
       </div>
