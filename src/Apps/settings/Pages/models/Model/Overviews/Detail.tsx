@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 import { useEffect } from 'react'
 import Icon from '../../../../../../Components/Icon'
-import useEditable from '../../../../../../Helpers/useEditableModel'
+import useEditable from '../../../../../../Helpers/useEditable'
 import { ModelOverviewType, ModelType } from '../../../../../../Types/Model'
 import { useData } from '../../../../../../Utils/Data'
 import { PageProps } from '../../../../../Types'

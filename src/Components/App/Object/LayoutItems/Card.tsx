@@ -1,11 +1,7 @@
-import { ModelLayoutItemType, ModelType } from '../../../../Types/Model'
 import Card from '../../../Card'
+import { LayoutItemType } from '../LayoutItem'
 
-const LICard: React.FC<{
-  layoutItem: ModelLayoutItemType
-  children?: JSX.Element | JSX.Element[]
-  model: ModelType
-}> = ({ children, layoutItem }) => {
+const LICard: React.FC<LayoutItemType> = ({ children, layoutItem }) => {
   // Vars
 
   // Lifecycle

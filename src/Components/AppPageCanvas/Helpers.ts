@@ -1,4 +1,4 @@
-import useEditable, { useEditableType } from '../../Helpers/useEditableModel'
+import useEditable, { useEditableType } from '../../Helpers/useEditable'
 
 const Helpers: HelpersType = { useEditable }
 export default Helpers

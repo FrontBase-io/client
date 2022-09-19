@@ -1,13 +1,18 @@
 import { TextField } from '@mui/material'
-import { ChangeEvent } from 'react'
 
 export interface TextInputProps {
   label: string
   value: string
   onChange: (newValue: string) => void
+  active?: boolean
 }
 
-const TextInput: React.FC<TextInputProps> = ({ label, value, onChange }) => {
+const TextInput: React.FC<TextInputProps> = ({
+  label,
+  value,
+  onChange,
+  active,
+}) => {
   // Vars
 
   // Lifecycle
@@ -24,6 +29,7 @@ const TextInput: React.FC<TextInputProps> = ({ label, value, onChange }) => {
         onChange(e.target.value)
       }
       fullWidth
+      autoFocus={active}
     />
   )
 }

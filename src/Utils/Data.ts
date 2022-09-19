@@ -46,9 +46,18 @@ export const useData = () => {
       // Todo: handle response
     })
   }
+
+  // Update object
+  const updateObject = (key: string, changes: { [key: string]: any }) => {
+    Server.emit('update-object', key, changes, () => {
+      // Todo: handle response
+    })
+  }
+
   return {
     getObjects,
     getModels,
     updateModel,
+    updateObject,
   }
 }

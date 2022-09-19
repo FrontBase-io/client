@@ -2,12 +2,14 @@ import { uniq } from 'lodash'
 import { useState } from 'react'
 import { ModelType } from '../Types/Model'
 import { useData } from '../Utils/Data'
+import { ObjectType } from '../Types/Object'
 
 export type useEditableType = <T>(original: T) => {
   editable: T
   changed: boolean
   updatedFields: string[]
   updateModel: () => void
+  updateObject: () => void
   set: (field: string, value: any) => void
   update: (newOriginal: T) => void
 }
@@ -17,7 +19,7 @@ const useEditable: useEditableType = (original) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [updatedFields, setUpdatedFields] = useState<string[]>([])
 
-  const { updateModel } = useData()
+  const { updateModel, updateObject } = useData()
 
   return {
     editable,
@@ -33,6 +35,13 @@ const useEditable: useEditableType = (original) => {
       //@ts-ignore
       updatedFields.map((f: string) => (changedFields[f] = editable[f]))
       updateModel((editable as ModelType).key, changedFields)
+      setChanged(false)
+    },
+    updateObject: () => {
+      const changedFields: { [key: string]: any } = {}
+      //@ts-ignore
+      updatedFields.map((f: string) => (changedFields[f] = editable[f]))
+      updateObject((editable as ObjectType)._id, changedFields)
       setChanged(false)
     },
     update: (newOriginal) => {
