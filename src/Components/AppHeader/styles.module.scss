@@ -1,9 +1,10 @@
 .appHeader {
-  position: absolute;
-  top: 0;
   height: 64px;
-  width: 100%;
   padding: var(--gap);
   color: white;
   box-sizing: border-box;
+  display: flex;
+  position: relative;
+  top: -30vh;
+  display: flex;
 }

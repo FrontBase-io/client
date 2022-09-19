@@ -1,31 +1,66 @@
 import { ObjectType } from '../../../Types/Object'
 import { ModelType } from '../../../Types/Model'
 import LayoutItem from './LayoutItem'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import useEditable from '../../../Helpers/useEditable'
+import { AppContext } from '../../../App'
 
-const ObjectDetail: React.FC<{ object: ObjectType; model: ModelType }> = ({
-  object,
-  model,
-}) => {
+const ObjectDetail: React.FC<{
+  object: ObjectType
+  model: ModelType
+  baseUrl: string
+}> = ({ object, model, baseUrl }) => {
   // Vars
   const [viewMode, setViewMode] = useState<'___view' | string>('___view')
+  const { setAppBar } = useContext(AppContext)
+
   const {
     editable,
     set: setEditable,
     updateObject,
     update,
   } = useEditable<ObjectType>(object)
-  // Lifecycle
-  useEffect(() => {
-    update(object)
-  }, [object])
 
   // Functions
   const save = () => {
     updateObject()
     setViewMode('___view')
   }
+
+  // Lifecycle
+  useEffect(() => {
+    update(object)
+  }, [object])
+  useEffect(() => {
+    setAppBar &&
+      object[model.primary] &&
+      setAppBar({
+        label: editable[model.primary],
+        up: baseUrl,
+        actions:
+          viewMode === '___view'
+            ? [
+                {
+                  label: 'Edit',
+                  icon: 'pencil',
+                  onClick: () => setViewMode('edit'),
+                  key: 'edit',
+                },
+              ]
+            : [
+                {
+                  label: 'Save',
+                  icon: 'content-save',
+                  onClick: save,
+                  key: 'save',
+                },
+              ],
+      })
+
+    return () => {
+      setAppBar && setAppBar(null)
+    }
+  }, [editable, object, model, viewMode])
 
   // UI
   return (

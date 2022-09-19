@@ -6,6 +6,7 @@ export interface ModelType extends ObjectType {
   key: string
   key_plural: string
   icon: string
+  primary: string
   fields: { [key: string]: ModelFieldType }
   overviews: { [key: string]: ModelOverviewType }
   layouts: { [key: string]: ModelLayoutType }

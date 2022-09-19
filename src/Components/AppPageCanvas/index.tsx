@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { findLast } from 'lodash'
 import { AppContext } from '../../App'
-import Card from '../Card'
+
 import RenderAppPage from './RenderAppPage'
 import Loading from '../Loading'
 

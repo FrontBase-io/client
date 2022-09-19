@@ -19,7 +19,7 @@ const AppContent: React.FC<{ app?: AppType; appPages: AppPageType[] }> = ({
   return (
     <ColorContext.Consumer>
       {({ primary }) => (
-        <div className={styles.appContent} style={{ width: '30%' }}>
+        <div className={styles.appContent}>
           <div
             className={styles.background}
             style={{ backgroundColor: primary }}

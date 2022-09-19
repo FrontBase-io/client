@@ -36,6 +36,8 @@ import { HTML5toTouch } from 'rdndmb-html5-to-touch' // or any other pipeline
 
 interface AppbarType {
   label: string
+  up?: string
+  actions?: { label: string; icon: string; onClick: () => void; key: string }[]
 }
 
 export interface DialogInputType {

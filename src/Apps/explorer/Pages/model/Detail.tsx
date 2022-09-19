@@ -21,7 +21,15 @@ const Detail: React.FC<PageProps> = ({ UI: { Card }, model }) => {
   // Functions
 
   // UI
-  return object ? <ObjectDetail object={object} model={model} /> : <Loading />
+  return object ? (
+    <ObjectDetail
+      object={object}
+      model={model}
+      baseUrl={`/explorer/${model.key_plural}`}
+    />
+  ) : (
+    <Loading />
+  )
 }
 
 export default Detail
