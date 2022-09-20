@@ -9,7 +9,7 @@ export interface SelectInputOptionType {
 
 export interface SelectInputType {
   label: string
-  value: string
+  value: string | string[]
   onChange: (newValue: string) => void
   options: SelectInputOptionType[]
   clearable?: true

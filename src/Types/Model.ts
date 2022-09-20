@@ -20,6 +20,15 @@ export interface ModelFieldType {
 export interface ModelOverviewType {
   label: string
   fields: string[]
+  actions?: {
+    single?: ModelOverviewActionType[]
+    multiple?: ModelOverviewActionType[]
+    global?: ModelOverviewActionType[]
+  }
+}
+
+export interface ModelOverviewActionType {
+  type: 'create'
 }
 
 export interface ModelLayoutType {

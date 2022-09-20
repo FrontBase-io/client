@@ -54,10 +54,24 @@ export const useData = () => {
     })
   }
 
+  // Update object
+  const addModel: (input: {
+    label: string
+    label_plural: string
+    key: string
+    key_plural: string
+    icon: string
+  }) => void = (input) => {
+    Server.emit('new-model', input, () => {
+      // Todo: handle response
+    })
+  }
+
   return {
     getObjects,
     getModels,
     updateModel,
     updateObject,
+    addModel,
   }
 }

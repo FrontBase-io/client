@@ -3,11 +3,12 @@ import { useData } from '../../../../Utils/Data'
 import { PageProps } from '../../../Types'
 import { ListItemType } from '../../../../Types/UI'
 import ModelsModel from './Model'
+import { DialogContext } from '../../../../App'
 
 const Models: React.FC<PageProps> = ({ UI: { ListDetailLayout } }) => {
   // Vars
   const [modelList, setModelList] = useState<ListItemType[]>()
-  const { getModels } = useData()
+  const { getModels, addModel } = useData()
 
   // Lifecycle
   useEffect(() => {
@@ -27,12 +28,48 @@ const Models: React.FC<PageProps> = ({ UI: { ListDetailLayout } }) => {
 
   // UI
   return (
-    <ListDetailLayout
-      title="Models"
-      list={modelList}
-      baseUrl="/settings/models"
-      component={ModelsModel}
-    />
+    <DialogContext.Consumer>
+      {({ setDialog }) => (
+        <ListDetailLayout
+          title="Models"
+          list={modelList}
+          baseUrl="/settings/models"
+          component={ModelsModel}
+          add={{
+            label: 'Create',
+            subtitle: 'New model',
+            icon: 'view-grid-plus',
+            onAdd: () =>
+              setDialog({
+                show: true,
+                title: 'New model',
+                form: [
+                  { label: 'Label', key: 'label' },
+                  { label: 'Label (plural)', key: 'label_plural' },
+                  { label: 'Key', key: 'key' },
+                  { label: 'Key (plural)', key: 'key_plural' },
+                  { label: 'Icon', key: 'icon' },
+                ],
+                actions: [
+                  {
+                    label: 'Add',
+                    onClick: (form) =>
+                      addModel(
+                        form as {
+                          label: string
+                          label_plural: string
+                          key: string
+                          key_plural: string
+                          icon: string
+                        }
+                      ),
+                  },
+                ],
+              }),
+          }}
+        />
+      )}
+    </DialogContext.Consumer>
   )
 }
 

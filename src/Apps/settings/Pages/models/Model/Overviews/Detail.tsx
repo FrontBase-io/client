@@ -1,13 +1,17 @@
 import {
   Fab,
   Grid,
+  IconButton,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
+  Typography,
 } from '@mui/material'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Icon from '../../../../../../Components/Icon'
+import { SelectInputOptionType } from '../../../../../../Components/Inputs/Select'
+import Menu from '../../../../../../Components/Menu'
 import useEditable from '../../../../../../Helpers/useEditable'
 import { ModelOverviewType, ModelType } from '../../../../../../Types/Model'
 import { useData } from '../../../../../../Utils/Data'
@@ -17,6 +21,7 @@ const ModelsOverviewsDetail: React.FC<PageProps> = ({
   UI: {
     Card,
     Animation: { AnimateGroup, AnimateItem },
+    Inputs: { SelectInput },
   },
   item,
   itemKey,
@@ -26,6 +31,8 @@ const ModelsOverviewsDetail: React.FC<PageProps> = ({
   const { editable, set, changed, update } =
     useEditable<ModelOverviewType>(item)
   const { updateModel } = useData()
+
+  // Actions
 
   // Lifecycle
   useEffect(() => {
@@ -38,7 +45,57 @@ const ModelsOverviewsDetail: React.FC<PageProps> = ({
   return (
     <>
       <AnimateGroup>
-        <Grid container>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <AnimateItem>
+              <Card title="Actions">
+                <Grid container>
+                  <Grid item xs={4}>
+                    <Typography variant="subtitle2">Global</Typography>
+                    {(editable.actions?.global ?? []).map(
+                      (action, actionIndex) => (
+                        <IconButton
+                          key={`action-global-${actionIndex}`}
+                          title={action.type}
+                        >
+                          <Icon
+                            icon={{ create: 'account-plus' }[action.type]}
+                          />
+                        </IconButton>
+                      )
+                    )}
+                    <Menu
+                      icon="plus"
+                      label="Add"
+                      items={[
+                        {
+                          label: 'Create',
+                          key: 'create',
+                          onClick: () => {
+                            set('actions', {
+                              ...(editable.actions || {}),
+                              global: [
+                                ...(editable.actions?.global ?? []),
+                                { type: 'create' },
+                              ],
+                            })
+                          },
+                        },
+                      ]}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography variant="subtitle2">Single</Typography>
+                    <Menu icon="plus" label="Add" items={[]} />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Typography variant="subtitle2">Multiple</Typography>
+                    <Menu icon="plus" label="Add" items={[]} />
+                  </Grid>
+                </Grid>
+              </Card>
+            </AnimateItem>
+          </Grid>
           <Grid item xs={6}>
             <AnimateItem>
               <Card title="Available" animate withoutPadding>

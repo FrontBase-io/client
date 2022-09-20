@@ -1,4 +1,5 @@
 import {
+  Divider,
   Grid,
   List,
   ListItemButton,
@@ -25,7 +26,7 @@ export interface ListDetailLayoutProps {
   component: FC<PageProps>
   componentProps?: { [key: string]: any }
   // 'Add new' list item
-  add?: { icon?: string; label?: string; onAdd: () => void }
+  add?: { icon?: string; subtitle?: string; label?: string; onAdd: () => void }
 }
 
 const ListDetailLayout: React.FC<ListDetailLayoutProps> = ({
@@ -81,12 +82,18 @@ const ListDetailLayout: React.FC<ListDetailLayoutProps> = ({
                 <Loading />
               )}
               {add && (
-                <ListItemButton onClick={add.onAdd}>
-                  <ListItemIcon>
-                    <Icon icon={add.icon ?? 'plus'} />
-                  </ListItemIcon>
-                  <ListItemText primary={add.label ?? 'Add new'} />
-                </ListItemButton>
+                <>
+                  <Divider />
+                  <ListItemButton onClick={add.onAdd}>
+                    <ListItemIcon>
+                      <Icon icon={add.icon ?? 'plus'} />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={add.label ?? 'Add new'}
+                      secondary={add.subtitle}
+                    />
+                  </ListItemButton>
+                </>
               )}
             </List>
           </Card>
