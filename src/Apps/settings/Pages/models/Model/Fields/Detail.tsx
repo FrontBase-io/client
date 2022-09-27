@@ -1,8 +1,16 @@
-import { Button, Fab, Grid } from '@mui/material'
+import {
+  Fab,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  ListSubheader,
+  Typography,
+} from '@mui/material'
 import { useEffect } from 'react'
-import Icon from '../../../../../../Components/Icon'
-import { ModelFieldType } from '../../../../../../Types/Model'
-import { useData } from '../../../../../../Utils/Data'
+import Icon from 'Components/Icon'
+import { ModelFieldType } from 'Types/Model'
+import { useData } from 'Utils/Data'
 import { PageProps } from '../../../../../Types'
 
 const ModelsModelFieldDetail: React.FC<PageProps> = ({
@@ -60,9 +68,43 @@ const ModelsModelFieldDetail: React.FC<PageProps> = ({
           </Card>
         </AnimateItem>
         <AnimateItem>
-          <Card title="Options" animate>
-            {editable.type}
-          </Card>
+          {editable.type === 'formula' ? (
+            <Card title="Options" animate>
+              <Typography>
+                A formula represents a certain logic that uses data from other
+                places to calculate the value of the field.
+              </Typography>
+              <Grid container spacing={3}>
+                <Grid item xs={8}>
+                  <TextInput
+                    label="Formula"
+                    value={editable.settings?.formula ?? ''}
+                    onChange={(v) => set('settings.formula', v)}
+                  />
+                </Grid>
+                <Grid item xs={4}>
+                  <strong>Formula facts</strong>
+                  <Typography>
+                    This formula works <Icon icon="clock-fast" />{' '}
+                    <em>instantly</em>.
+                  </Typography>
+                  <List>
+                    <ListSubheader>Linked fields</ListSubheader>
+                    <ListItem>
+                      <ListItemText>First name</ListItemText>
+                    </ListItem>
+                    <ListItem>
+                      <ListItemText>Last name</ListItemText>
+                    </ListItem>
+                  </List>
+                </Grid>
+              </Grid>
+            </Card>
+          ) : (
+            <Card title="Unknown field type" animate>
+              {editable.type}
+            </Card>
+          )}
         </AnimateItem>
       </AnimateGroup>
       {changed && (

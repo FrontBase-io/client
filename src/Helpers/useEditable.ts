@@ -1,4 +1,4 @@
-import { uniq } from 'lodash'
+import { set as _set, uniq } from 'lodash'
 import { useState } from 'react'
 import { ModelType } from '../Types/Model'
 import { useData } from '../Utils/Data'
@@ -29,7 +29,9 @@ const useEditable: useEditableType = (original) => {
     set: (field: string, value: any) => {
       setChanged(true)
       setUpdatedFields(uniq([...updatedFields, field]))
-      setEditable({ ...editable, [field]: value })
+      const newEditable = { ...editable }
+      _set(newEditable as object, field, value)
+      setEditable(newEditable)
     },
     updateModel: () => {
       const changedFields: { [key: string]: any } = {}

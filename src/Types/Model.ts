@@ -14,7 +14,8 @@ export interface ModelType extends ObjectType {
 
 export interface ModelFieldType {
   name: string
-  type: 'text' | 'list' | 'number'
+  type: 'text' | 'list' | 'number' | 'formula'
+  settings?: { [key: string]: any }
 }
 
 export interface ModelOverviewType {
