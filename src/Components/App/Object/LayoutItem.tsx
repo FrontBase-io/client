@@ -1,5 +1,6 @@
-import { ModelLayoutItemType, ModelType } from '../../../Types/Model'
-import { ObjectType } from '../../../Types/Object'
+import { ModelLayoutItemType, ModelType } from 'Types/Model'
+import { NewObjectType, ObjectType } from 'Types/Object'
+
 import LICard from './LayoutItems/Card'
 import LIFields from './LayoutItems/Fields'
 import LIText from './LayoutItems/Text'
@@ -8,18 +9,18 @@ export interface LayoutItemType {
   layoutItem: ModelLayoutItemType
   children?: JSX.Element | JSX.Element[]
   model: ModelType
-  object: ObjectType
-  viewMode: '___view' | string
-  setViewMode: (viewMode: '___view' | string) => void
+  object: ObjectType | NewObjectType
+  viewMode?: '___view' | string
+  setViewMode?: (viewMode: '___view' | string) => void
   setEditable: (field: string, value: any) => void
 }
 
 const LayoutItem: React.FC<{
   layoutItem: ModelLayoutItemType
   model: ModelType
-  object: ObjectType
-  viewMode: '___view' | string
-  setViewMode: (viewMode: '___view' | string) => void
+  object: ObjectType | NewObjectType
+  viewMode?: '___view' | string
+  setViewMode?: (viewMode: '___view' | string) => void
   setEditable: (field: string, value: any) => void
 }> = ({ layoutItem, model, object, viewMode, setViewMode, setEditable }) => {
   // Vars

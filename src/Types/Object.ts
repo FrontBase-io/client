@@ -3,3 +3,7 @@ export interface ObjectType {
   _meta: { modelId: string }
   [key: string]: any
 }
+
+export interface NewObjectType {
+  [key: string]: any
+}

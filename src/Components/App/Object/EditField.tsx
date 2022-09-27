@@ -1,11 +1,11 @@
-import { ModelType } from '../../../Types/Model'
-import { ObjectType } from '../../../Types/Object'
+import { ModelType } from 'Types/Model'
+import { NewObjectType, ObjectType } from 'Types/Object'
 import TextInput from '../../Inputs/Text'
 
 const EditField: React.FC<{
   model: ModelType
   fieldKey: string
-  object: ObjectType
+  object: ObjectType | NewObjectType
   active: boolean
   setEditable: (field: string, value: any) => void
 }> = ({ model, fieldKey, object, active, setEditable }) => {
@@ -21,7 +21,7 @@ const EditField: React.FC<{
       {model.fields[fieldKey].type === 'text' ? (
         <TextInput
           label={model.fields[fieldKey].name}
-          value={object[fieldKey]}
+          value={object[fieldKey] ?? ''}
           onChange={(newValue) => setEditable(fieldKey, newValue)}
           active={active}
         />

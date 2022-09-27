@@ -1,18 +1,20 @@
 import {
-  Button,
   Grid,
+  Button,
   Table,
-  TableBody,
-  TableCell,
   TableHead,
   TableRow,
+  TableCell,
+  TableBody,
 } from '@mui/material'
-import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { ModelType } from '../../../Types/Model'
-import { ObjectType } from '../../../Types/Object'
-import { useData } from '../../../Utils/Data'
-import Card from '../../Card'
+import { DialogContext } from 'App'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { ModelType } from 'Types/Model'
+import { useData } from 'Utils/Data'
+import Card from 'Components/Card'
+import { ObjectType } from 'Types/Object'
+import CreateObject from 'Components/App/Object/Create'
 
 const ModelOverview: React.FC<{ model: ModelType }> = ({ model }) => {
   // Vars
@@ -30,44 +32,66 @@ const ModelOverview: React.FC<{ model: ModelType }> = ({ model }) => {
 
   // UI
   return (
-    <Card title={model.label_plural} animate>
-      <>
-        <Grid container justifyContent="flex-end">
-          {(model.overviews['default']?.actions?.global ?? []).map((action) => (
-            <Grid item xs={1}>
-              <Button variant="contained">Create</Button>
+    <DialogContext.Consumer>
+      {({ setDialog }) => (
+        <Card title={model.label_plural} animate>
+          <>
+            <Grid container justifyContent="flex-end">
+              {(model.overviews['default']?.actions?.global ?? []).map(
+                (action, index) => (
+                  <Grid item xs={1} key={index}>
+                    <Button
+                      variant="contained"
+                      onClick={() =>
+                        setDialog({
+                          show: true,
+                          size: 'md',
+                          title: `Create new ${model.label}`,
+                          content: <CreateObject model={model} />,
+                        })
+                      }
+                    >
+                      Create
+                    </Button>
+                  </Grid>
+                )
+              )}
             </Grid>
-          ))}
-        </Grid>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {(model.overviews['default']?.fields ?? []).map((field) => (
-                <TableCell key={field}>{model.fields[field].name}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          {objects && (
-            <TableBody>
-              {objects.map((object) => (
-                <TableRow
-                  key={object._id}
-                  onClick={() =>
-                    navigate(`/explorer/${model.key_plural}/${object._id}`)
-                  }
-                >
+            <Table>
+              <TableHead>
+                <TableRow>
                   {(model.overviews['default']?.fields ?? []).map((field) => (
-                    <TableCell key={`${object._id}-${field}`}>
-                      {object[field]}
+                    <TableCell key={field}>
+                      {model.fields[field].name}
                     </TableCell>
                   ))}
                 </TableRow>
-              ))}
-            </TableBody>
-          )}
-        </Table>
-      </>
-    </Card>
+              </TableHead>
+              {objects && (
+                <TableBody>
+                  {objects.map((object) => (
+                    <TableRow
+                      key={object._id}
+                      onClick={() =>
+                        navigate(`/explorer/${model.key_plural}/${object._id}`)
+                      }
+                    >
+                      {(model.overviews['default']?.fields ?? []).map(
+                        (field) => (
+                          <TableCell key={`${object._id}-${field}`}>
+                            {object[field]}
+                          </TableCell>
+                        )
+                      )}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              )}
+            </Table>
+          </>
+        </Card>
+      )}
+    </DialogContext.Consumer>
   )
 }
 

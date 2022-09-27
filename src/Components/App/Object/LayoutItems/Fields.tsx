@@ -1,7 +1,8 @@
-import { Grid, Typography } from '@mui/material'
-import Field from '../Field'
+import { Grid } from '@mui/material'
+import Field from './Field'
 import { LayoutItemType } from '../LayoutItem'
 import EditField from '../EditField'
+import { ObjectType } from 'Types/Object'
 
 const LIFields: React.FC<LayoutItemType> = ({
   layoutItem,
@@ -24,8 +25,12 @@ const LIFields: React.FC<LayoutItemType> = ({
         {Object.keys(model.fields).map((fieldKey) => (
           <Grid item xs={6} key={fieldKey}>
             {viewMode === '___view' ? (
-              <div onDoubleClick={() => setViewMode(fieldKey)}>
-                <Field object={object} model={model} fieldKey={fieldKey} />
+              <div onDoubleClick={() => setViewMode && setViewMode(fieldKey)}>
+                <Field
+                  object={object as ObjectType}
+                  model={model}
+                  fieldKey={fieldKey}
+                />
               </div>
             ) : (
               <EditField

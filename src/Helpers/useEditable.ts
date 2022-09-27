@@ -2,7 +2,7 @@ import { uniq } from 'lodash'
 import { useState } from 'react'
 import { ModelType } from '../Types/Model'
 import { useData } from '../Utils/Data'
-import { ObjectType } from '../Types/Object'
+import { NewObjectType, ObjectType } from 'Types/Object'
 
 export type useEditableType = <T>(original: T) => {
   editable: T
@@ -12,6 +12,7 @@ export type useEditableType = <T>(original: T) => {
   updateObject: () => void
   set: (field: string, value: any) => void
   update: (newOriginal: T) => void
+  insert: (modelId: string) => void
 }
 
 const useEditable: useEditableType = (original) => {
@@ -19,7 +20,7 @@ const useEditable: useEditableType = (original) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [updatedFields, setUpdatedFields] = useState<string[]>([])
 
-  const { updateModel, updateObject } = useData()
+  const { updateModel, updateObject, insertObject } = useData()
 
   return {
     editable,
@@ -47,6 +48,10 @@ const useEditable: useEditableType = (original) => {
     update: (newOriginal) => {
       setChanged(false)
       setEditable(newOriginal)
+    },
+    insert: (modelId) => {
+      console.log(editable)
+      insertObject(modelId, editable as NewObjectType)
     },
   }
 }

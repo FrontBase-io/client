@@ -1,4 +1,4 @@
-import Card from '../../../Card'
+import Card from 'Components/Card'
 import { LayoutItemType } from '../LayoutItem'
 
 const LICard: React.FC<LayoutItemType> = ({ children, layoutItem }) => {

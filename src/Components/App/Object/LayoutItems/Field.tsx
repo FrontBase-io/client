@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material'
-import { ModelType } from '../../../Types/Model'
-import { ObjectType } from '../../../Types/Object'
+import { ModelType } from '../../../../Types/Model'
+import { ObjectType } from '../../../../Types/Object'
 
 const Field: React.FC<{
   model: ModelType

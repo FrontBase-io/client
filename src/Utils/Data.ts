@@ -1,5 +1,6 @@
-import { ModelType } from '../Types/Model'
-import { ObjectType } from '../Types/Object'
+import { ModelType } from 'Types/Model'
+import { NewObjectType, ObjectType } from 'Types/Object'
+
 import Server from './Socket'
 
 export const useData = () => {
@@ -67,11 +68,21 @@ export const useData = () => {
     })
   }
 
+  const insertObject: (modelId: string, object: NewObjectType) => void = (
+    modelId,
+    object
+  ) => {
+    Server.emit('insert-object', modelId, object, () => {
+      // Todo: handle response
+    })
+  }
+
   return {
     getObjects,
     getModels,
     updateModel,
     updateObject,
     addModel,
+    insertObject,
   }
 }

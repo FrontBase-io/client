@@ -53,6 +53,8 @@ interface DialogType {
   show: boolean
   title?: string
   text?: string
+  content?: JSX.Element | JSX.Element[]
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   form?: DialogInputType[]
   actions?: DialogActionType[]
 }
@@ -202,6 +204,8 @@ function App() {
             </BrowserRouter>
             <Dialog
               open={dialog.show}
+              fullWidth
+              maxWidth={dialog.size ?? 'sm'}
               onClose={() => setDialog({ ...dialog, show: false })}
             >
               {dialog.title && <DialogTitle>{dialog.title}</DialogTitle>}
@@ -210,6 +214,7 @@ function App() {
                   {dialog.text && (
                     <DialogContentText>{dialog.text}</DialogContentText>
                   )}
+                  {dialog.content && dialog.content}
                   {dialog.form && (
                     <Grid container spacing={3}>
                       {dialog.form.map((formItem) => (
