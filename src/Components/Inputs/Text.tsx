@@ -24,7 +24,7 @@ const TextInput: React.FC<TextInputProps> = ({
     <TextField
       label={label}
       variant="outlined"
-      value={value}
+      value={value ?? ''}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
         onChange(e.target.value)
       }

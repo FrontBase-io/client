@@ -41,6 +41,8 @@ const ModelsModelFields: React.FC<PageProps> = ({
                   ? 'format-list-bulleted-square'
                   : model.fields[fieldKey].type === 'formula'
                   ? 'pot-mix'
+                  : model.fields[fieldKey].type === 'relationship'
+                  ? 'human-greeting-proximity'
                   : 'help-circle-outline',
             })
           )}

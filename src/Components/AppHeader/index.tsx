@@ -19,7 +19,7 @@ const AppHeader: React.FC = () => {
           {appBar?.up && (
             <Link to={appBar?.up}>
               <IconButton>
-                <Icon icon="chevron-left" />
+                <Icon icon="chevron-left" style={{ color: 'white' }} />
               </IconButton>
             </Link>
           )}

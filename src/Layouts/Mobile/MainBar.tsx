@@ -36,7 +36,7 @@ const MainBar: React.FC<{ onOpenDrawer: () => void }> = ({ onOpenDrawer }) => {
                     color="inherit"
                     aria-label="Back"
                   >
-                    <Icon icon="chevron-left" />
+                    <Icon icon="chevron-left" style={{ color: 'white' }} />
                   </IconButton>
                 </Link>
               ) : (

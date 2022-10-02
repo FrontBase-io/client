@@ -25,6 +25,15 @@ export const useData = () => {
     })
   }
 
+  // Get object
+  const getObject: (
+    modelKey: string,
+    id: string,
+    then: (data: ObjectType) => void
+  ) => void = (modelKey, id, then) => {
+    getObjects({ model: modelKey, id }, (objects) => then(objects[0]))
+  }
+
   // Get models
   const getModels: (
     args: { filter: {} },
@@ -39,6 +48,13 @@ export const useData = () => {
         }
       })
     })
+  }
+
+  const getModel: (key: string, then: (model: ModelType) => void) => void = (
+    key,
+    then
+  ) => {
+    getModels({ filter: { key } }, (models) => then(models[0]))
   }
 
   // Save model
@@ -79,7 +95,9 @@ export const useData = () => {
 
   return {
     getObjects,
+    getObject,
     getModels,
+    getModel,
     updateModel,
     updateObject,
     addModel,

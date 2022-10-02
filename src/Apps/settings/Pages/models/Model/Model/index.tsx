@@ -77,6 +77,13 @@ const ModelsModelModel: React.FC<PageProps> = ({
             <Grid item xs={6}>
               <Icon icon={editable.icon} />
             </Grid>
+            <Grid item xs={6}>
+              <TextInput
+                label="Primary"
+                value={editable.primary}
+                onChange={(v) => set('primary', v)}
+              />
+            </Grid>
           </Grid>
         </div>
       </Card>

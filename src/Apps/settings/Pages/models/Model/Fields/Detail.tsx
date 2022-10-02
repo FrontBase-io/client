@@ -7,9 +7,9 @@ import {
   ListSubheader,
   Typography,
 } from '@mui/material'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Icon from 'Components/Icon'
-import { ModelFieldType } from 'Types/Model'
+import { ModelFieldType, ModelType } from 'Types/Model'
 import { useData } from 'Utils/Data'
 import { PageProps } from '../../../../../Types'
 
@@ -26,12 +26,18 @@ const ModelsModelFieldDetail: React.FC<PageProps> = ({
 }) => {
   // Vars
   const { editable, set, changed, update } = useEditable<ModelFieldType>(item)
-  const { updateModel } = useData()
+  const { updateModel, getModels } = useData()
+  const [models, setModels] = useState<ModelType[]>([])
 
   // Lifecycle
   useEffect(() => {
     update(item)
   }, [item])
+  useEffect(() => {
+    getModels({ filter: {} }, (_models) => {
+      setModels(_models)
+    })
+  }, [])
 
   // Functions
 
@@ -60,6 +66,7 @@ const ModelsModelFieldDetail: React.FC<PageProps> = ({
                       { label: 'Number', key: 'number' },
                       { label: 'List', key: 'list' },
                       { label: 'Formula', key: 'formula' },
+                      { label: 'Relationship', key: 'relationship' },
                     ]}
                   />
                 </Grid>
@@ -99,6 +106,15 @@ const ModelsModelFieldDetail: React.FC<PageProps> = ({
                   </List>
                 </Grid>
               </Grid>
+            </Card>
+          ) : editable.type === 'relationship' ? (
+            <Card title="Relationship" animate>
+              <SelectInput
+                label="Relationship to"
+                value={editable.settings?.to}
+                onChange={(v) => set('settings.to', v)}
+                options={models?.map((m) => ({ label: m.label, key: m.key }))}
+              />
             </Card>
           ) : (
             <Card title="Unknown field type" animate>
