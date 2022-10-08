@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BrowserRouter } from 'react-router-dom'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
 import UserType from './Types/User'
 import socket from './Utils/Socket'
@@ -177,29 +179,31 @@ function App() {
                   },
                 })}
               >
-                {serverIsReady ? (
-                  user === undefined ? (
-                    <Loading />
-                  ) : user ? (
-                    <>
-                      <Hidden mdUp>
-                        <MobileLayout />
-                      </Hidden>
-                      <Hidden mdDown>
-                        <DesktopLayout />
-                      </Hidden>
-                    </>
+                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  {serverIsReady ? (
+                    user === undefined ? (
+                      <Loading />
+                    ) : user ? (
+                      <>
+                        <Hidden mdUp>
+                          <MobileLayout />
+                        </Hidden>
+                        <Hidden mdDown>
+                          <DesktopLayout />
+                        </Hidden>
+                      </>
+                    ) : (
+                      <Login />
+                    )
                   ) : (
-                    <Login />
-                  )
-                ) : (
-                  <ServerSetup />
-                )}
-                <Snackbar open={!connected}>
-                  <Alert severity="info">
-                    {t('system.connection.connecting')}
-                  </Alert>
-                </Snackbar>
+                    <ServerSetup />
+                  )}
+                  <Snackbar open={!connected}>
+                    <Alert severity="info">
+                      {t('system.connection.connecting')}
+                    </Alert>
+                  </Snackbar>
+                </LocalizationProvider>
               </ThemeProvider>
             </BrowserRouter>
             <Dialog

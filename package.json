@@ -6,7 +6,9 @@
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@mui/material": "^5.9.3",
+    "@mui/x-date-pickers": "^5.0.4",
     "@types/uniqid": "^5.3.2",
+    "date-fns": "^2.29.3",
     "framer-motion": "^7.0.0",
     "i18next": "^21.8.16",
     "lodash": "^4.17.21",
@@ -32,8 +34,8 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^27.0.1",
     "@types/lodash": "^4.14.184",
-    "@types/react": "^18.0.21",
     "@types/node": "^18.8.3",
+    "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.0"
   },
   "scripts": {

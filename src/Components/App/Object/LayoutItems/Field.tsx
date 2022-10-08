@@ -1,4 +1,5 @@
 import { Typography } from '@mui/material'
+import ViewDate from 'Components/App/Fields/View/Date'
 import ViewRelationship from 'Components/App/Fields/View/Relationship'
 import { ModelType } from 'Types/Model'
 import { ObjectType } from 'Types/Object'
@@ -30,6 +31,15 @@ const Field: React.FC<{
           ) : (
             '-'
           )}
+        </>
+      ) : model.fields[fieldKey].type === 'date' ? (
+        <>
+          <Typography variant="caption">
+            {model.fields[fieldKey].name}
+          </Typography>
+          <div>
+            <ViewDate date={object[fieldKey]} />
+          </div>
         </>
       ) : (
         <>

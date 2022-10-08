@@ -69,6 +69,7 @@ const ModelsModelFieldDetail: React.FC<PageProps> = ({
                         options={[
                           { label: 'Text', key: 'text' },
                           { label: 'Number', key: 'number' },
+                          { label: 'Date', key: 'date' },
                           { label: 'List', key: 'list' },
                           { label: 'Formula', key: 'formula' },
                           { label: 'Relationship', key: 'relationship' },
