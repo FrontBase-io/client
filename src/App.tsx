@@ -155,31 +155,31 @@ function App() {
   // UI
 
   return (
-    <DndProvider options={HTML5toTouch}>
-      <ColorContext.Provider value={{ primary, secondary }}>
-        <AppContext.Provider
-          value={{
-            currentApp,
-            setCurrentApp: handleSetCurrentApp,
-            currentPage,
-            setCurrentPage,
-            appBar,
-            setAppBar,
-          }}
-        >
-          <DialogContext.Provider value={{ dialog, setDialog }}>
-            <BrowserRouter>
-              <ThemeProvider
-                theme={createTheme({
-                  palette: {
-                    mode: colorMode,
-                    primary: {
-                      main: primary,
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <DndProvider options={HTML5toTouch}>
+        <ColorContext.Provider value={{ primary, secondary }}>
+          <AppContext.Provider
+            value={{
+              currentApp,
+              setCurrentApp: handleSetCurrentApp,
+              currentPage,
+              setCurrentPage,
+              appBar,
+              setAppBar,
+            }}
+          >
+            <DialogContext.Provider value={{ dialog, setDialog }}>
+              <BrowserRouter>
+                <ThemeProvider
+                  theme={createTheme({
+                    palette: {
+                      mode: colorMode,
+                      primary: {
+                        main: primary,
+                      },
                     },
-                  },
-                })}
-              >
-                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                  })}
+                >
                   {serverIsReady ? (
                     user === undefined ? (
                       <Loading />
@@ -203,79 +203,79 @@ function App() {
                       {t('system.connection.connecting')}
                     </Alert>
                   </Snackbar>
-                </LocalizationProvider>
-              </ThemeProvider>
-            </BrowserRouter>
-            <Dialog
-              open={dialog.show}
-              fullWidth
-              maxWidth={dialog.size ?? 'sm'}
-              onClose={() => setDialog({ ...dialog, show: false })}
-            >
-              {dialog.title && <DialogTitle>{dialog.title}</DialogTitle>}
-              <DialogContent>
-                <>
-                  {dialog.text && (
-                    <DialogContentText>{dialog.text}</DialogContentText>
-                  )}
-                  {dialog.content && dialog.content}
-                  {dialog.form && (
-                    <Grid container spacing={3}>
-                      {dialog.form.map((formItem) => (
-                        <Grid item xs={12} key={formItem.key}>
-                          {(formItem.type === 'text' || !formItem.type) && (
-                            <TextInput
-                              label={formItem.label}
-                              value={dialogFormContent[formItem.key] ?? ''}
-                              onChange={(newValue) => {
-                                setDialogFormContent({
-                                  ...dialogFormContent,
-                                  [formItem.key]: newValue,
-                                })
-                              }}
-                            />
-                          )}
-                          {formItem.type === 'boolean' && (
-                            <CheckboxInput
-                              label={formItem.label}
-                              value={dialogFormContent[formItem.key] ?? false}
-                              onChange={(newValue) => {
-                                setDialogFormContent({
-                                  ...dialogFormContent,
-                                  [formItem.key]: newValue,
-                                })
-                              }}
-                            />
-                          )}
-                        </Grid>
-                      ))}
-                    </Grid>
-                  )}
-                </>
-              </DialogContent>
-              {dialog.actions && (
-                <DialogActions>
-                  {dialog.actions.map((dialogAction, index) => (
-                    <Button
-                      key={`dialog-action-${index}`}
-                      onClick={() => {
-                        dialogAction.onClick &&
-                          dialogAction.onClick(dialogFormContent)
-                        setDialogFormContent({})
-                        setDialog({ ...dialog, show: false })
-                      }}
-                      autoFocus
-                    >
-                      {dialogAction.label}
-                    </Button>
-                  ))}
-                </DialogActions>
-              )}
-            </Dialog>
-          </DialogContext.Provider>
-        </AppContext.Provider>
-      </ColorContext.Provider>
-    </DndProvider>
+                </ThemeProvider>
+              </BrowserRouter>
+              <Dialog
+                open={dialog.show}
+                fullWidth
+                maxWidth={dialog.size ?? 'sm'}
+                onClose={() => setDialog({ ...dialog, show: false })}
+              >
+                {dialog.title && <DialogTitle>{dialog.title}</DialogTitle>}
+                <DialogContent>
+                  <>
+                    {dialog.text && (
+                      <DialogContentText>{dialog.text}</DialogContentText>
+                    )}
+                    {dialog.content && dialog.content}
+                    {dialog.form && (
+                      <Grid container spacing={3}>
+                        {dialog.form.map((formItem) => (
+                          <Grid item xs={12} key={formItem.key}>
+                            {(formItem.type === 'text' || !formItem.type) && (
+                              <TextInput
+                                label={formItem.label}
+                                value={dialogFormContent[formItem.key] ?? ''}
+                                onChange={(newValue) => {
+                                  setDialogFormContent({
+                                    ...dialogFormContent,
+                                    [formItem.key]: newValue,
+                                  })
+                                }}
+                              />
+                            )}
+                            {formItem.type === 'boolean' && (
+                              <CheckboxInput
+                                label={formItem.label}
+                                value={dialogFormContent[formItem.key] ?? false}
+                                onChange={(newValue) => {
+                                  setDialogFormContent({
+                                    ...dialogFormContent,
+                                    [formItem.key]: newValue,
+                                  })
+                                }}
+                              />
+                            )}
+                          </Grid>
+                        ))}
+                      </Grid>
+                    )}
+                  </>
+                </DialogContent>
+                {dialog.actions && (
+                  <DialogActions>
+                    {dialog.actions.map((dialogAction, index) => (
+                      <Button
+                        key={`dialog-action-${index}`}
+                        onClick={() => {
+                          dialogAction.onClick &&
+                            dialogAction.onClick(dialogFormContent)
+                          setDialogFormContent({})
+                          setDialog({ ...dialog, show: false })
+                        }}
+                        autoFocus
+                      >
+                        {dialogAction.label}
+                      </Button>
+                    ))}
+                  </DialogActions>
+                )}
+              </Dialog>
+            </DialogContext.Provider>
+          </AppContext.Provider>
+        </ColorContext.Provider>
+      </DndProvider>
+    </LocalizationProvider>
   )
 }
 

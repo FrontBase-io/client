@@ -96,6 +96,15 @@ const ModelsModelFieldDetail: React.FC<PageProps> = ({
                       />
                     </Grid>
                     <Grid item xs={4}>
+                      <SelectInput
+                        label="Output type"
+                        value={editable.settings?.formula_output ?? 'text'}
+                        onChange={(v) => set('settings.formula_output', v)}
+                        options={[
+                          { label: 'Text', key: 'text' },
+                          { label: 'Number', key: 'number' },
+                        ]}
+                      />
                       <strong>Formula facts</strong>
                       <Typography>
                         This formula works <Icon icon="clock-fast" />{' '}

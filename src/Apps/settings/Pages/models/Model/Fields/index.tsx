@@ -29,7 +29,7 @@ const ModelsModelFields: React.FC<PageProps> = ({
           list={Object.keys((model as ModelType).fields ?? {}).map(
             (fieldKey) => ({
               label: model.fields[fieldKey].name,
-              hint: model.fields[fieldKey].type,
+              hint: fieldKey,
               key: fieldKey,
               item: model.fields[fieldKey],
               icon:

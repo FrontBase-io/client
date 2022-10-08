@@ -16,8 +16,12 @@ export interface ModelFieldType {
   name: string
   type: 'text' | 'number' | 'date' | 'list' | 'relationship' | 'formula'
   settings?: {
+    // Formula
+    formula?: string
+    formula_output?: string
     // List
     options?: { label: string; key: string }[]
+    // Others
     [key: string]: any
   }
 }
