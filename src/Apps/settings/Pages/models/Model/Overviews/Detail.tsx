@@ -102,19 +102,23 @@ const ModelsOverviewsDetail: React.FC<PageProps> = ({
                 <List disablePadding>
                   {Object.keys((model as ModelType).fields)
                     .filter((f) => !editable.fields.includes(f))
-                    .map((fieldKey) => (
-                      <ListItemButton
-                        key={fieldKey}
-                        onClick={() => {
-                          set('fields', [...editable.fields, fieldKey])
-                        }}
-                      >
-                        <ListItemText
-                          primary={(model as ModelType).fields[fieldKey].name}
-                          secondary={fieldKey}
-                        />
-                      </ListItemButton>
-                    ))}
+                    .map((fieldKey) =>
+                      (model as ModelType)?.fields?.[fieldKey]?.name ? (
+                        <ListItemButton
+                          key={fieldKey}
+                          onClick={() => {
+                            set('fields', [...editable.fields, fieldKey])
+                          }}
+                        >
+                          <ListItemText
+                            primary={(model as ModelType).fields[fieldKey].name}
+                            secondary={fieldKey}
+                          />
+                        </ListItemButton>
+                      ) : (
+                        <></>
+                      )
+                    )}
                 </List>
               </Card>
             </AnimateItem>
@@ -125,22 +129,26 @@ const ModelsOverviewsDetail: React.FC<PageProps> = ({
                 <List disablePadding>
                   {Object.keys((model as ModelType).fields)
                     .filter((f) => editable.fields.includes(f))
-                    .map((fieldKey) => (
-                      <ListItemButton
-                        key={fieldKey}
-                        onClick={() => {
-                          set(
-                            'fields',
-                            editable.fields.filter((f) => f !== fieldKey)
-                          )
-                        }}
-                      >
-                        <ListItemText
-                          primary={(model as ModelType).fields[fieldKey].name}
-                          secondary={fieldKey}
-                        />
-                      </ListItemButton>
-                    ))}
+                    .map((fieldKey) =>
+                      (model as ModelType)?.fields?.[fieldKey]?.name ? (
+                        <ListItemButton
+                          key={fieldKey}
+                          onClick={() => {
+                            set(
+                              'fields',
+                              editable.fields.filter((f) => f !== fieldKey)
+                            )
+                          }}
+                        >
+                          <ListItemText
+                            primary={(model as ModelType).fields[fieldKey].name}
+                            secondary={fieldKey}
+                          />
+                        </ListItemButton>
+                      ) : (
+                        <></>
+                      )
+                    )}
                 </List>
               </Card>
             </AnimateItem>
@@ -151,9 +159,13 @@ const ModelsOverviewsDetail: React.FC<PageProps> = ({
                 <table style={{ width: '100%' }}>
                   <thead>
                     <tr>
-                      {editable.fields.map((f) => (
-                        <th key={f}>{(model as ModelType).fields[f].name}</th>
-                      ))}
+                      {editable.fields.map((f) =>
+                        (model as ModelType)?.fields?.[f]?.name ? (
+                          <th key={f}>{(model as ModelType).fields[f].name}</th>
+                        ) : (
+                          <></>
+                        )
+                      )}
                     </tr>
                   </thead>
                 </table>

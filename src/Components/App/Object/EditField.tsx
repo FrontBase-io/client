@@ -1,6 +1,7 @@
 import { ModelType } from 'Types/Model'
 import { NewObjectType, ObjectType } from 'Types/Object'
 import TextInput from '../../Inputs/Text'
+import EditList from '../Fields/Edit/List'
 import EditRelationship from '../Fields/Edit/Relationship'
 
 const EditField: React.FC<{
@@ -31,6 +32,13 @@ const EditField: React.FC<{
           label={model.fields[fieldKey].name}
           from={object._id}
           to={model.fields[fieldKey].settings?.to}
+          value={object[fieldKey] ?? ''}
+          onChange={(newValue) => setEditable(fieldKey, newValue)}
+        />
+      ) : model.fields[fieldKey].type === 'list' ? (
+        <EditList
+          fieldKey={fieldKey}
+          model={model}
           value={object[fieldKey] ?? ''}
           onChange={(newValue) => setEditable(fieldKey, newValue)}
         />
