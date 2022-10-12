@@ -36,27 +36,26 @@ const ModelOverview: React.FC<{ model: ModelType }> = ({ model }) => {
       {({ setDialog }) => (
         <Card title={model.label_plural} animate>
           <>
-            <Grid container justifyContent="flex-end">
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               {(model.overviews['default']?.actions?.global ?? []).map(
                 (action, index) => (
-                  <Grid item xs={1} key={index}>
-                    <Button
-                      variant="contained"
-                      onClick={() =>
-                        setDialog({
-                          show: true,
-                          size: 'md',
-                          title: `Create new ${model.label}`,
-                          content: <CreateObject model={model} />,
-                        })
-                      }
-                    >
-                      Create
-                    </Button>
-                  </Grid>
+                  <Button
+                    variant="contained"
+                    key={`action-${action}`}
+                    onClick={() =>
+                      setDialog({
+                        show: true,
+                        size: 'md',
+                        title: `Create new ${model.label}`,
+                        content: <CreateObject model={model} />,
+                      })
+                    }
+                  >
+                    Create
+                  </Button>
                 )
               )}
-            </Grid>
+            </div>
             <Table>
               <TableHead>
                 <TableRow>
