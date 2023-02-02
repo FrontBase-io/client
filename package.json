@@ -19,7 +19,7 @@
     "react-dnd-html5-backend": "^16.0.1",
     "react-dnd-multi-backend": "^7.1.1",
     "react-dom": "^18.2.0",
-    "react-i18next": "^12.0.0",
+    "react-i18next": "^12.1.4",
     "react-router-dom": "6",
     "react-scripts": "5.0.1",
     "react-select": "^5.5.9",
@@ -32,10 +32,10 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^14.4.3",
-    "@types/jest": "^29.2.1",
+    "@types/jest": "^29.4.0",
     "@types/lodash": "^4.14.184",
     "@types/node": "^18.11.10",
-    "@types/react": "^18.0.21",
+    "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.0"
   },
   "scripts": {
